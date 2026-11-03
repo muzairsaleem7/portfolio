@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+/* Theme is driven by data-theme on <html>; the inline script in layout.tsx sets it before paint. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--line);
+  --color-chip-fg: var(--chip-fg);
+  --color-chip-bg: var(--chip-bg);
+  --color-chip-border: var(--chip-border);
+  --color-sky: #38bdf8;
+  --color-indigo: #6366f1;
+  --color-navy-900: #0b1526;
+  --color-navy-800: #0f2240;
+  --color-navy-700: #123a5e;
+
+  --radius-pill: 999px;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  color-scheme: dark;
+  --bg: #0b1526;
+  --bg-gradient: linear-gradient(115deg, #0b1526 0%, #0f2240 55%, #123a5e 100%);
+  --fg: #cbd5e1;
+  --heading: #ffffff;
+  --muted: #94a3b8;
+  --accent: #7dd3fc;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.07);
+  --line: rgba(255, 255, 255, 0.1);
+  --chip-fg: #e0f2fe;
+  --chip-bg: rgba(255, 255, 255, 0.04);
+  --chip-border: rgba(125, 211, 252, 0.45);
+  --grid: rgba(255, 255, 255, 0.045);
+  --glow-sky: rgba(56, 189, 248, 0.22);
+  --glow-indigo: rgba(99, 102, 241, 0.18);
+  --header-bg: rgba(11, 21, 38, 0.72);
+  --focus: #7dd3fc;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f9fc;
+  --bg-gradient: linear-gradient(115deg, #f8fafc 0%, #eef4fb 55%, #e3eef9 100%);
+  --fg: #334155;
+  --heading: #0b1526;
+  --muted: #526078;
+  --accent: #0369a1;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.95);
+  --line: rgba(11, 21, 38, 0.1);
+  --chip-fg: #0c4a6e;
+  --chip-bg: rgba(14, 165, 233, 0.08);
+  --chip-border: rgba(2, 132, 199, 0.4);
+  --grid: rgba(11, 21, 38, 0.05);
+  --glow-sky: rgba(56, 189, 248, 0.28);
+  --glow-indigo: rgba(99, 102, 241, 0.16);
+  --header-bg: rgba(246, 249, 252, 0.78);
+  --focus: #0369a1;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings:
+    "cv11",
+    "ss01",
+    "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 300ms var(--ease-out-soft),
+    color 300ms var(--ease-out-soft);
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+  color: var(--heading);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* ---------- Backdrop: gradient + 44px grid + glows ---------- */
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-gradient);
+  overflow: hidden;
+  pointer-events: none;
+}
+.site-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.35));
+}
+.glow {
+  position: absolute;
+  border-radius: 50%;
+}
+.glow-sky {
+  width: 900px;
+  height: 900px;
+  right: -260px;
+  top: -420px;
+  background: radial-gradient(circle, var(--glow-sky) 0%, transparent 62%);
+}
+.glow-indigo {
+  width: 700px;
+  height: 700px;
+  left: 20%;
+  bottom: -420px;
+  background: radial-gradient(circle, var(--glow-indigo) 0%, transparent 65%);
+}
+
+/* ---------- Accent helpers ---------- */
+.accent-bar {
+  background: linear-gradient(90deg, #38bdf8, #6366f1);
+}
+.text-gradient {
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.btn-primary {
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  color: #0b1526;
+  box-shadow: 0 10px 30px -12px rgba(56, 189, 248, 0.6);
+}
+.btn-primary:hover {
+  box-shadow: 0 14px 34px -12px rgba(99, 102, 241, 0.65);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+  transition:
+    transform 400ms var(--ease-out-soft),
+    border-color 300ms var(--ease-out-soft),
+    box-shadow 400ms var(--ease-out-soft),
+    background-color 300ms var(--ease-out-soft);
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: var(--chip-border);
+  box-shadow: 0 24px 50px -30px rgba(56, 189, 248, 0.35);
+}
+
+/* ---------- Entrance animations ----------
+   Reveal elements are hidden only when JS is present (html.js), so no-JS users see everything. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms var(--ease-out-soft),
+    transform 700ms var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise-in 650ms var(--ease-out-soft) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+.animate-float {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-rise,
+  .animate-float {
+    animation: none;
+  }
+  .card,
+  .card-hover:hover {
+    transition: none;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ---------- Print (resume) ---------- */
+.print-only {
+  display: none;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #1f2937 !important;
+  }
+  .site-backdrop,
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #0b1526 !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
