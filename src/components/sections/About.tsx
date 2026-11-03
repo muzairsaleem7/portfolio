@@ -18,18 +18,6 @@ export function About() {
               </Reveal>
             ))}
           </div>
-
-          <ul className="mt-10 grid gap-4 sm:grid-cols-3">
-            {about.principles.map((item, i) => (
-              <Reveal key={item.title} as="li" delay={120 + i * 90}>
-                <Card className="h-full p-5" hover>
-                  <div aria-hidden="true" className="accent-bar h-1 w-8 rounded-full" />
-                  <h3 className="mt-4 text-base font-semibold">{item.title}</h3>
-                  <p className="text-fg mt-2 text-sm leading-relaxed">{item.body}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </ul>
         </div>
 
         <Reveal delay={160}>
@@ -50,6 +38,18 @@ export function About() {
           </Card>
         </Reveal>
       </div>
+
+      <ul className="mt-12 grid gap-4 md:grid-cols-3">
+        {about.principles.map((item, i) => (
+          <Reveal key={item.title} as="li" delay={i * 90}>
+            <Card className="h-full" hover>
+              <div aria-hidden="true" className="accent-bar h-1 w-8 rounded-full" />
+              <h3 className="mt-4 text-base font-semibold">{item.title}</h3>
+              <p className="text-fg mt-2 text-sm leading-relaxed">{item.body}</p>
+            </Card>
+          </Reveal>
+        ))}
+      </ul>
     </Section>
   );
 }

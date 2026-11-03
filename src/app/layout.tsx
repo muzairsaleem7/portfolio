@@ -6,6 +6,7 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PersonJsonLd } from "@/components/seo/JsonLd";
+import { RevealObserver } from "@/components/ui/RevealObserver";
 import "./globals.css";
 
 const inter = Inter({
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <PersonJsonLd />
+        <RevealObserver />
       </body>
     </html>
   );

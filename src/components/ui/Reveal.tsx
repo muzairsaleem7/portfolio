@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -11,48 +9,18 @@ type Props = {
 };
 
 /**
- * Entrance animation on scroll. Hidden state only applies when <html class="js">
- * (see globals.css), so content is always visible without JavaScript.
- * Respects prefers-reduced-motion.
+ * Entrance-animation wrapper. This is a server component: it only emits a `data-reveal`
+ * attribute, and a single client-side observer (RevealObserver, mounted once in the root layout)
+ * adds `is-visible` when the element scrolls into view. Keeping this on the server avoids a
+ * client boundary per section and keeps section markup out of the RSC payload.
+ *
+ * The hidden state only applies when <html class="js"> (see globals.css), so content is always
+ * visible without JavaScript, and prefers-reduced-motion disables the motion entirely.
  */
 export function Reveal({ children, className, delay = 0, as: Tag = "div" }: Props) {
-  const ref = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-visible");
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            el.classList.add("is-visible");
-            io.disconnect();
-          }
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   const style = { "--reveal-delay": `${delay}ms` } as CSSProperties;
-
   return (
-    <Tag
-      ref={(node: HTMLElement | null) => {
-        ref.current = node;
-      }}
-      data-reveal=""
-      className={className}
-      style={style}
-    >
+    <Tag data-reveal="" className={className} style={style}>
       {children}
     </Tag>
   );

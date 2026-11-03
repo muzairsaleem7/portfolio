@@ -24,7 +24,7 @@ export function MobileNav({ items }: { items: readonly Item[] }) {
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         ref={buttonRef}
         type="button"
@@ -58,7 +58,7 @@ export function MobileNav({ items }: { items: readonly Item[] }) {
         className={`border-line ease-out-soft absolute inset-x-0 top-full grid border-b transition-[grid-template-rows,opacity] duration-400 motion-reduce:transition-none ${
           open ? "grid-rows-[1fr] opacity-100" : "pointer-events-none grid-rows-[0fr] opacity-0"
         }`}
-        style={{ background: "var(--header-bg)", backdropFilter: "blur(14px)" }}
+        style={{ background: "var(--bg)" }}
         inert={!open}
       >
         <div className="overflow-hidden">

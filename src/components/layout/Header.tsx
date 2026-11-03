@@ -21,7 +21,7 @@ export function Header() {
             {nav.brand}
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
             {nav.links.map((link) => (
               <Link
                 key={link.href}
@@ -40,9 +40,11 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button href={nav.cta.href} size="sm" className="hidden md:inline-flex">
-              {nav.cta.label}
-            </Button>
+            <div className="hidden lg:block">
+              <Button href={nav.cta.href} size="sm">
+                {nav.cta.label}
+              </Button>
+            </div>
             <ThemeToggle />
             <MobileNav items={nav.links} />
           </div>
