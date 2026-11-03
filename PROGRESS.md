@@ -77,29 +77,26 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 
 ## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome)
 
-The host was under heavy CPU load from other local dev servers during the final runs, so each run
-was paired with a control build (the previous commit) to separate noise from real changes.
+Final build (commit 25f2dba), mobile, home page, 11 runs on a quiet host (CPU benchmark index 1450–1720):
 
-Mobile, home page, final build vs control, alternating runs:
+| Category       | Result                                                 |
+| -------------- | ------------------------------------------------------ |
+| Performance    | 96, 95, 96, 95, 93, 96, 96, 98, 97, 97, 96 (median 96) |
+| Accessibility  | 100 on every run                                       |
+| Best Practices | 100 on every run                                       |
+| SEO            | 100 on every run                                       |
 
-| Pair | Host benchmark (new / old) | Perf new | Perf old | A11y | Best Practices | SEO |
-| ---- | -------------------------- | -------- | -------- | ---- | -------------- | --- |
-| 1    | 1040 / 1240                | 90       | 89       | 100  | 100            | 100 |
-| 2    | 1457 / 1327                | 85       | 87       | 100  | 100            | 100 |
-| 3    | 1519 / 1550                | 97       | 94       | 100  | 100            | 100 |
-| 4    | 1438 / 1011                | 95       | 84       | 100  | 100            | 100 |
-| 5    | 1486 / 1534                | 94       | 91       | 100  | 100            | 100 |
+Typical metrics: FCP 1.0 s, LCP 1.0 s, TBT 170–260 ms, CLS 0, Speed Index 1.1–1.5 s.
 
-Desktop, home page: Perf 99–100, A11y 100, Best Practices 100, SEO 100.
+Desktop, home page: Performance 100, Accessibility 100, Best Practices 100, SEO 100.
 
-- Accessibility, Best Practices, and SEO are 100 on every run.
-- Mobile performance reaches 95–97 when the host CPU is not contended, and the final build is equal to or better than the control.
-- Re-measure on the Vercel deployment with PageSpeed Insights for an authoritative number.
+Measurement note: other local dev servers can load this machine heavily. When the CPU benchmark index drops below about 1300, mobile performance falls to the mid 80s for every build, including older ones. Compare against a control build when numbers look off.
 
 Performance lessons recorded for future work:
 
-- Do not wrap home sections in `<Suspense>`: with Cache Components each section streams as a hidden segment and is swapped in by script, forcing a second layout (Speed Index ~3 s).
+- Do not wrap home sections in `<Suspense>`: with Cache Components each section streams as a hidden segment and is swapped in by script, forcing a second layout.
 - `next/font` `display: "optional"` made scores worse; keep `swap`.
+- `experimental.inlineCss` made FCP slower (1.0 s to 1.2 s) because the HTML grows; keep the external stylesheet.
 - The infinite floating glow animation was removed (entrance animations only, per the prompt).
 
 ## Open items
