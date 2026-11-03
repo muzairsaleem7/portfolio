@@ -14,20 +14,20 @@ export function Hero() {
       <Container className="grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:py-32">
         <div>
           <p
-            className="animate-rise text-accent text-xs font-semibold tracking-[0.28em] uppercase sm:text-sm"
+            className="animate-rise-soft text-accent text-xs font-semibold tracking-[0.28em] uppercase sm:text-sm"
             style={rise(0)}
           >
             {hero.eyebrow}
           </p>
           <h1
             id="hero-heading"
-            className="animate-rise mt-4 max-w-3xl text-4xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+            className="animate-rise-soft mt-4 max-w-3xl text-4xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl"
             style={rise(80)}
           >
             {hero.heading}
           </h1>
           <p
-            className="animate-rise text-fg mt-5 max-w-xl text-lg leading-relaxed sm:text-xl"
+            className="animate-rise-soft text-fg mt-5 max-w-xl text-lg leading-relaxed sm:text-xl"
             style={rise(160)}
           >
             {hero.sub}

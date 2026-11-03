@@ -208,19 +208,6 @@ html.js [data-reveal].is-visible {
   animation-delay: var(--rise-delay, 0ms);
 }
 
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -14px, 0);
-  }
-}
-.animate-float {
-  animation: float-slow 9s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -230,8 +217,7 @@ html.js [data-reveal].is-visible {
     transform: none;
     transition: none;
   }
-  .animate-rise,
-  .animate-float {
+  .animate-rise {
     animation: none;
   }
   .card,
@@ -282,5 +268,24 @@ html.js [data-reveal].is-visible {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Rise without a fade: used on the hero heading so LCP is not delayed by opacity. */
+@keyframes rise-in-soft {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: none;
+  }
+}
+.animate-rise-soft {
+  animation: rise-in-soft 650ms var(--ease-out-soft) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise-soft {
+    animation: none;
   }
 }

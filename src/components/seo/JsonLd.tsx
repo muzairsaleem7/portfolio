@@ -9,6 +9,8 @@ export function PersonJsonLd() {
     jobTitle: "Product Engineer",
     description: siteConfig.description,
     url: siteConfig.url,
+    ...(siteConfig.contact.email ? { email: `mailto:${siteConfig.contact.email}` } : {}),
+    ...(siteConfig.contact.phone ? { telephone: siteConfig.contact.phone } : {}),
     address: {
       "@type": "PostalAddress",
       addressLocality: siteConfig.location.city,

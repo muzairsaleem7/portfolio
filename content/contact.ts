@@ -6,6 +6,10 @@ export const contact = {
   availabilityLabel: "Availability",
   linkedinLabel: "Message me on LinkedIn",
   emailLabel: "Email me directly",
+  whatsappLabel: "WhatsApp",
+  directHeading: "Direct contact",
+  emailFieldLabel: "Email",
+  phoneFieldLabel: "Phone / WhatsApp",
   form: {
     heading: "Send a message",
     fields: {

@@ -24,10 +24,10 @@ export default function ProjectsPage() {
         </h1>
         <p className="text-fg mt-4 text-base leading-relaxed sm:text-lg">{projectsSection.intro}</p>
       </Reveal>
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-12 grid gap-5 sm:grid-cols-2">
         {projects.map((project, i) => (
           <Reveal key={project.slug} as="li" delay={i * 90}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} index={i} />
           </Reveal>
         ))}
       </ul>

@@ -1,4 +1,4 @@
-import { siteConfig } from "~/site.config";
+import { siteConfig, telHref } from "~/site.config";
 import { resume } from "~/content/resume";
 import { roles } from "~/content/experience";
 import { education } from "~/content/education";
@@ -51,7 +51,17 @@ export function Resume() {
               </a>
             </li>
           ) : null}
-          {siteConfig.contact.phone ? <li>{siteConfig.contact.phone}</li> : null}
+          {siteConfig.contact.phone ? (
+            <li>
+              <a
+                href={telHref(siteConfig.contact.phone)}
+                className="underline-offset-2 hover:underline"
+              >
+                {siteConfig.contact.phone}
+                {siteConfig.contact.whatsapp ? resume.whatsappSuffix : ""}
+              </a>
+            </li>
+          ) : null}
         </ul>
       </header>
 

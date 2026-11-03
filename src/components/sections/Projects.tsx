@@ -26,7 +26,7 @@ export function Projects() {
       <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((project, i) => (
           <Reveal key={project.slug} as="li" delay={i * 90}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} index={projects.indexOf(project)} />
           </Reveal>
         ))}
       </ul>

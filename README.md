@@ -38,7 +38,7 @@ All copy lives in plain TypeScript files. You should never need to touch JSX to 
 | Header / footer labels                  | `content/nav.ts`        |
 | Resume summary + headings               | `content/resume.ts`     |
 
-Open items (placeholders) are tracked in `CONTENT-TODO.md`.
+Open content items are tracked in `CONTENT-TODO.md`.
 
 ### Profile photo
 
@@ -71,7 +71,7 @@ The form posts to `src/app/api/contact/route.ts`, which validates the payload, l
 
 1. Push this repository to GitHub.
 2. Import the repo in Vercel. Framework preset: Next.js. Package manager: pnpm. No `vercel.json` is needed.
-3. Set the environment variable `NEXT_PUBLIC_SITE_URL` to the production URL (e.g. `https://yourdomain.com`). It drives canonical URLs, the sitemap, robots, Open Graph URLs, and JSON-LD.
+3. The production URL is `https://muzairsaleem.vercel.app` (set in `site.config.ts`). It drives canonical URLs, the sitemap, robots, Open Graph URLs, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` only to override it, for example on a custom domain.
 4. Optionally add the email provider key for the contact form.
 
 ## Project layout

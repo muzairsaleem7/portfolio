@@ -1,6 +1,7 @@
 export const resume = {
   pageTitle: "Resume",
   downloadLabel: "Download PDF",
+  whatsappSuffix: " (WhatsApp)",
   printHint: 'Opens your browser\'s print dialog. Choose "Save as PDF" as the destination.',
   backLabel: "Back to site",
   summaryHeading: "Summary",

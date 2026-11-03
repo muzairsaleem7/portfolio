@@ -1,6 +1,6 @@
 /**
  * Single place for identity, links, and contact details.
- * Anything marked PLACEHOLDER is listed in CONTENT-TODO.md.
+ * Everything here is used across the contact section, footer, resume, metadata, and JSON-LD.
  */
 export const siteConfig = {
   name: "Uzair Saleem",
@@ -16,19 +16,21 @@ export const siteConfig = {
     countryCode: "PK",
     label: "Lahore, Pakistan · Remote",
   },
-  /** PLACEHOLDER: set NEXT_PUBLIC_SITE_URL (or edit here) to the deployed domain. Used for canonical URLs, sitemap, OG, JSON-LD. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
+  /** Production URL. Used for metadataBase, canonical URLs, sitemap, robots, OG, and JSON-LD. NEXT_PUBLIC_SITE_URL overrides it (e.g. for preview deployments). */
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://muzairsaleem.vercel.app").replace(/\/$/, ""),
   links: {
     linkedin: "https://www.linkedin.com/in/muzairsaleem7/",
     github: "https://github.com/muzairsaleem7" as string,
-    /** PLACEHOLDER: any other public link (Upwork, blog, etc.). Leave href empty to hide. */
+    /** Optional extra link (Upwork, blog, etc.). Leave href empty to hide it. */
     other: { label: "" as string, href: "" as string },
   },
   contact: {
-    /** PLACEHOLDER: public email. Leave empty to hide the mailto link. */
-    email: "" as string,
-    /** PLACEHOLDER: public phone in international format. Leave empty to hide. */
-    phone: "" as string,
+    /** Public email. Leave empty to hide every mailto link. */
+    email: "muzairsaleem7@gmail.com" as string,
+    /** Public phone in international format. Leave empty to hide it. */
+    phone: "+92 320 9865164" as string,
+    /** Whether the phone number also takes WhatsApp messages (adds a wa.me link). */
+    whatsapp: true as boolean,
   },
   availability:
     "Open to full-time and contract product engineering roles with international teams, and to freelance engagements with businesses that need a SaaS product or internal tool built.",
@@ -37,3 +39,13 @@ export const siteConfig = {
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+
+/** "+92 320 9865164" -> "+923209865164" for tel: links. */
+export function telHref(phone: string): string {
+  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
+/** "+92 320 9865164" -> "https://wa.me/923209865164" */
+export function whatsappHref(phone: string): string {
+  return `https://wa.me/${phone.replace(/\D/g, "")}`;
+}

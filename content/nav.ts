@@ -20,6 +20,7 @@ export const nav = {
 export const footer = {
   linkedinLabel: "LinkedIn",
   githubLabel: "GitHub",
+  whatsappLabel: "WhatsApp",
   resumeLabel: "Resume",
   rights: "All rights reserved.",
   builtWith: "Built with Next.js. Deployed on Vercel.",

@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-dvh flex-col">
         <SkipLink />
         <div className="site-backdrop" aria-hidden="true">
-          <div className="glow glow-sky animate-float" />
+          <div className="glow glow-sky" />
           <div className="glow glow-indigo" />
         </div>
         <Header />

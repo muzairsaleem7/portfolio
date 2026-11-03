@@ -10,7 +10,11 @@ You are building a personal portfolio website for me, Uzair Saleem, a Product En
 - **Location:** Lahore, Punjab, Pakistan. Works remotely.
 - **LinkedIn:** https://www.linkedin.com/in/muzairsaleem7/
 - **Availability:** Open to full-time and contract product engineering roles with international teams, and to freelance engagements with businesses that need a SaaS product or internal tool built.
-- **Email / phone / GitHub / other links:** PLACEHOLDER. Build the contact section with `mailto:` and link slots wired to a single `site.config.ts` so I can fill them in one place.
+- **Email:** muzairsaleem7@gmail.com
+- **Phone / WhatsApp:** +92 320 9865164
+- **GitHub:** https://github.com/muzairsaleem7
+- **Portfolio URL (this site):** https://muzairsaleem.vercel.app/
+- Keep all contact details and links in a single `site.config.ts` so they can be changed in one place.
 
 ## 2. Positioning and tone
 
@@ -29,10 +33,12 @@ I'm a product engineer who builds B2B SaaS and business applications end to end:
 
 Over the past five years I've worked on client-facing web applications at software houses in Lahore and, since 2024, directly with founders and business owners as an independent engineer. The common thread is turning a real business workflow into dependable software, without a hand-off between the person who understands the problem and the person who writes the code.
 
+The measure I care about is business impact. I help companies grow through software: SaaS products their customers pay for, B2B lead generation and sales pipeline tools, customer portals, and internal systems that remove manual work and give teams reliable data.
+
 What I work with:
 
 - Front end: React, Next.js
-- Back end: Node.js, REST API development, third-party integrations
+- Back end: Node.js, Python, REST API development, third-party integrations
 - Data: PostgreSQL, MongoDB, Supabase
 - Delivery: cloud deployment, CI/CD, monitoring, and production support
 
@@ -88,9 +94,69 @@ Web Development, SaaS Development, Custom Software Development, Application Deve
 
 Service pitch: I build B2B SaaS products and business applications end to end for founders and business owners: scoping, architecture, front end, back end, integrations, and production support. Remote, with clear communication and dependable delivery. Pricing: contact for pricing.
 
-## 8. Projects: PLACEHOLDER
+## 8. Projects (verified, matches my LinkedIn Projects section)
 
-I haven't supplied project details yet. Build a `Projects` section driven by a typed array in `content/projects.ts` with fields: `title`, `summary`, `problem`, `solution`, `stack[]`, `role`, `links { live?, repo? }`, `image?`, `featured`. Seed it with exactly three entries whose titles are "Project placeholder 1/2/3" and whose text is obviously placeholder. Add them to `CONTENT-TODO.md`. Do not invent real-sounding project names.
+Build a `Projects` section driven by a typed array in `content/projects.ts` with fields: `slug`, `title`, `summary`, `problem`, `solution`, `highlights[]`, `stack[]`, `role`, `context`, `links { live?, repo? }`, `image?`, `featured`. Use exactly the four projects below, in this order. Use the copy as written; you may split it into the fields but do not add features, client names, metrics, dates, or outcomes that aren't stated here.
+
+There are no public links or screenshots for these projects. Leave `links` and `image` empty, and design the cards and detail pages so they look complete without them: use a stack-chip row and a simple abstract header in the banner palette instead of a screenshot. Do not render empty "Live demo" or "GitHub" buttons. List "add links or screenshots when available" once in `CONTENT-TODO.md`.
+
+**1. Multi-Tenant B2B SaaS Platform** (featured)
+
+- Slug: `multi-tenant-b2b-saas-platform`
+- Context: Independent engagement, Product Engineer (Freelance)
+- Role: Product engineer, end to end
+- Summary: Subscription-based SaaS web application serving multiple business customers from a single codebase.
+- Problem: Several business customers needed the same product with their data kept strictly separate, plus a way to onboard and manage customer accounts.
+- Solution and highlights:
+  - Multi-tenant data model with tenant isolation, role-based access control, and an admin console for onboarding and managing customer accounts.
+  - Customer-facing dashboard and workflow screens in Next.js and React; REST API and background jobs in Node.js.
+  - PostgreSQL on Supabase with row-level security, authentication, and file storage; subscription billing and transactional email through third-party integrations.
+  - Deployed with CI/CD, environment-based configuration, logging, and monitoring; owned production support after launch.
+- Stack: Next.js, React, Node.js, PostgreSQL, Supabase, REST APIs
+
+**2. B2B Lead Generation & Sales Pipeline Tool** (featured)
+
+- Slug: `b2b-lead-generation-sales-pipeline`
+- Context: Independent engagement, Product Engineer (Freelance)
+- Role: Product engineer, end to end
+- Summary: Web application that helps a B2B business capture, qualify, and follow up on leads.
+- Problem: Leads arrived from several sources with no single place to qualify, assign, and follow up on them, and no view of which sources converted.
+- Solution and highlights:
+  - Lead capture from website forms and landing pages with validation, de-duplication, and source tracking.
+  - Pipeline board for sales stages, assignment, notes, and reminders, with role-based access for sales and management.
+  - Integrations with a CRM and an email service through REST APIs; automated follow-up sequences and lead notifications.
+  - Reporting views for lead volume, conversion by stage, and source performance so the business can see what is working.
+- Stack: React, Node.js, Express.js, MongoDB, REST APIs
+
+**3. Business Workflow Automation Platform** (featured)
+
+- Slug: `business-workflow-automation-platform`
+- Context: Full Stack Developer at TEKXL
+- Role: Full-stack developer
+- Summary: Internal web platform that replaced spreadsheet- and email-driven processes for a business client with structured, trackable workflows.
+- Problem: Requests and approvals ran through spreadsheets and email, with no status tracking, no audit trail, and manual month-end reporting.
+- Solution and highlights:
+  - Configurable request and approval flows with status tracking, assignment, deadlines, and an audit trail of every change.
+  - Role-based dashboards for staff, managers, and administrators; notifications by email and in-app.
+  - Reporting and export for operational metrics, replacing manual month-end reconciliation.
+  - React front end with a Node.js REST API on PostgreSQL; deployed with CI/CD and supported in production after release.
+- Stack: React, Node.js, PostgreSQL, REST APIs, CI/CD
+
+**4. Customer Portal with Third-Party Integrations**
+
+- Slug: `customer-portal-integrations`
+- Context: Full Stack Software Engineer at Techvex
+- Role: Full-stack engineer
+- Summary: Customer-facing web portal giving a business client's customers self-service access to their accounts, orders, and documents.
+- Problem: Customers had to contact staff for routine account, order, and document requests, and the client's systems weren't connected to a customer-facing channel.
+- Solution and highlights:
+  - Secure login and account management with role-based permissions for customers and internal staff.
+  - Order and request tracking, document downloads, and a support request flow with status updates.
+  - Integrations with payment, email, and the client's back-office system through a Node.js REST API layer with retries and error handling.
+  - React front end with Next.js; MongoDB for portal data; CI/CD deployments and production support.
+- Stack: Next.js, React, Node.js, MongoDB, REST APIs
+
+On the home page, show the three featured projects as cards. The `/projects` page lists all four, and each card links to `/projects/[slug]` with the summary, problem, highlights, stack, and context.
 
 ## 9. Design direction
 
@@ -137,7 +203,7 @@ All copy lives in `content/*.ts` files, never hard-coded in components, so I can
 ## 12. How to work, and how to resume
 
 - Start by creating `PLAN.md` listing every file you intend to create and every section, then `PROGRESS.md` with a checklist. Update `PROGRESS.md` after each completed item. If this session is interrupted, the next session must be able to read `PROGRESS.md` and `CONTENT-TODO.md` and continue without asking me what's done.
-- Build in this order: project setup and theme tokens → content files → layout, header, footer → hero → about → services → experience → skills → education → projects (placeholder) → contact → resume page → SEO and OG image → accessibility and performance pass → README.
+- Build in this order: project setup and theme tokens → content files → layout, header, footer → hero → about → services → experience → skills → education → projects → contact → resume page → SEO and OG image → accessibility and performance pass → README.
 - After each major section, run `pnpm build` and fix anything broken before moving on.
 - Don't ask me to approve wording or layout choices; use your judgment within the rules above. Ask only if something blocks you, and keep building everything else while you wait.
 - When finished, give me: the dev command, a list of placeholders left in `CONTENT-TODO.md`, the Lighthouse scores you measured, and anything you'd recommend changing.

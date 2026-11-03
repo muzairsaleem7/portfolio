@@ -1,55 +1,63 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "~/content/projects";
+import { projectsSection, type Project } from "~/content/projects";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";
+import { ProjectBanner } from "@/components/projects/ProjectBanner";
 
-export function isPlaceholder(project: Project): boolean {
-  return project.summary.startsWith("[Placeholder]");
-}
+type Props = {
+  project: Project;
+  /** Position in the full projects list; drives the banner number and glow layout. */
+  index: number;
+};
 
-export function ProjectCard({ project }: { project: Project }) {
-  const placeholder = isPlaceholder(project);
+export function ProjectCard({ project, index }: Props) {
   const href = `/projects/${project.slug}`;
 
   return (
-    <Card as="article" hover className="flex h-full flex-col overflow-hidden p-0">
-      <Link href={href} className="group block focus-visible:outline-offset-[-3px]">
-        <div className="border-line relative aspect-[16/9] overflow-hidden border-b">
-          {project.image ? (
-            <Image
-              src={project.image}
-              alt={`${project.title} screenshot`}
-              fill
-              sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
-              className="ease-out-soft object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
-            />
-          ) : (
-            <div
-              aria-hidden="true"
-              className="ease-out-soft flex h-full w-full items-center justify-center bg-[linear-gradient(115deg,#0b1526,#0f2240_55%,#123a5e)] transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
-            >
-              <span className="text-sky/60 font-mono text-2xl">{"</>"}</span>
-            </div>
-          )}
-          {placeholder ? (
-            <span className="rounded-pill absolute top-3 left-3 border border-amber-400/50 bg-amber-400/15 px-2.5 py-1 text-xs font-semibold text-amber-200 [[data-theme=light]_&]:text-amber-800">
-              Placeholder
-            </span>
-          ) : null}
-        </div>
-      </Link>
+    <Card
+      as="article"
+      hover
+      padded={false}
+      className="group relative flex h-full flex-col overflow-hidden"
+    >
+      <div className="border-line relative aspect-[16/7] overflow-hidden border-b">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} screenshot`}
+            fill
+            sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
+            className="ease-out-soft object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+        ) : (
+          <ProjectBanner index={index} hoverZoom className="h-full w-full" />
+        )}
+      </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-semibold">
-          <Link href={href} className="hover:text-accent transition-colors">
+        <p className="text-accent text-xs font-medium">{project.context}</p>
+        <h3 className="mt-2 text-lg font-semibold">
+          {/* The stretched link makes the whole card clickable with a single tab stop. */}
+          <Link
+            href={href}
+            className="hover:text-accent transition-colors after:absolute after:inset-0 after:rounded-2xl"
+          >
             {project.title}
           </Link>
         </h3>
         <p className="text-fg mt-2 flex-1 text-sm leading-relaxed">{project.summary}</p>
-        <div className="mt-4">
+        <div className="mt-5">
           <ChipList items={project.stack} size="sm" label={`${project.title} stack`} />
         </div>
-        <p className="text-muted mt-4 text-xs">{project.role}</p>
+        <p className="text-heading mt-5 inline-flex items-center gap-1.5 text-sm font-semibold">
+          {projectsSection.cardCta}
+          <span
+            aria-hidden="true"
+            className="ease-out-soft transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+          >
+            →
+          </span>
+        </p>
       </div>
     </Card>
   );

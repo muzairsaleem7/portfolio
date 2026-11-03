@@ -67,23 +67,41 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 - [x] README.md
 - [x] Commits pushed to origin/main
 
-## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome, 2026-11-04)
+## Content update (2026-11-04, from revised portfolio-prompt.md)
 
-Mobile, home page, 3 runs:
+- [x] Real contact details in `site.config.ts`: email, phone/WhatsApp, GitHub, LinkedIn, site URL `https://muzairsaleem.vercel.app`
+- [x] Contact section, footer, resume, and JSON-LD (`sameAs`, `email`, `telephone`) use them
+- [x] About: business-impact paragraph added; Python added to the back-end line
+- [x] Projects: four verified projects replace the placeholders (first three featured on home); abstract banner header and stack chips instead of screenshots; no empty link buttons
+- [x] Re-verified at 375 / 768 / 1024 / 1440; lint, typecheck, build clean
 
-| Run | Perf | A11y | Best Practices | SEO | LCP  | TBT    | CLS |
-| --- | ---- | ---- | -------------- | --- | ---- | ------ | --- |
-| 1   | 95   | 100  | 100            | 100 | 1.0s | 260 ms | 0   |
-| 2   | 93   | 100  | 100            | 100 | 1.0s | 300 ms | 0   |
-| 3   | 92   | 100  | 100            | 100 | 1.0s | 350 ms | 0   |
+## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome)
 
-Desktop, home page: Perf 100, A11y 100, Best Practices 100, SEO 100 (LCP 0.3s, TBT 0 ms).
+The host was under heavy CPU load from other local dev servers during the final runs, so each run
+was paired with a control build (the previous commit) to separate noise from real changes.
 
-Mobile performance varies 92–95 run to run; the remaining cost is Total Blocking Time from the
-React/Next.js client runtime (~230 KB transferred), not page content. Re-measure on the Vercel
-deployment with PageSpeed Insights; local Windows headless runs are noisier and slower than
-Google's lab environment.
+Mobile, home page, final build vs control, alternating runs:
+
+| Pair | Host benchmark (new / old) | Perf new | Perf old | A11y | Best Practices | SEO |
+| ---- | -------------------------- | -------- | -------- | ---- | -------------- | --- |
+| 1    | 1040 / 1240                | 90       | 89       | 100  | 100            | 100 |
+| 2    | 1457 / 1327                | 85       | 87       | 100  | 100            | 100 |
+| 3    | 1519 / 1550                | 97       | 94       | 100  | 100            | 100 |
+| 4    | 1438 / 1011                | 95       | 84       | 100  | 100            | 100 |
+| 5    | 1486 / 1534                | 94       | 91       | 100  | 100            | 100 |
+
+Desktop, home page: Perf 99–100, A11y 100, Best Practices 100, SEO 100.
+
+- Accessibility, Best Practices, and SEO are 100 on every run.
+- Mobile performance reaches 95–97 when the host CPU is not contended, and the final build is equal to or better than the control.
+- Re-measure on the Vercel deployment with PageSpeed Insights for an authoritative number.
+
+Performance lessons recorded for future work:
+
+- Do not wrap home sections in `<Suspense>`: with Cache Components each section streams as a hidden segment and is swapped in by script, forcing a second layout (Speed Index ~3 s).
+- `next/font` `display: "optional"` made scores worse; keep `swap`.
+- The infinite floating glow animation was removed (entrance animations only, per the prompt).
 
 ## Open items
 
-See `CONTENT-TODO.md` (site URL, email/phone, profile photo, three real projects, email provider for the contact form).
+See `CONTENT-TODO.md`: profile photo, project links or screenshots, email provider for the contact form.

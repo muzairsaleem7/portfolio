@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { siteConfig } from "~/site.config";
+import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { footer, nav } from "~/content/nav";
 import { Container } from "@/components/ui/Container";
 
@@ -13,11 +13,15 @@ async function getYear(): Promise<number> {
 
 export async function Footer() {
   const year = await getYear();
+  const { email, phone, whatsapp } = siteConfig.contact;
   const links: Array<{ label: string; href: string; external: boolean }> = [
     { label: footer.linkedinLabel, href: siteConfig.links.linkedin, external: true },
   ];
   if (siteConfig.links.github) {
     links.push({ label: footer.githubLabel, href: siteConfig.links.github, external: true });
+  }
+  if (phone && whatsapp) {
+    links.push({ label: footer.whatsappLabel, href: whatsappHref(phone), external: true });
   }
   if (siteConfig.links.other.href) {
     links.push({
@@ -35,6 +39,26 @@ export async function Footer() {
           <p className="text-heading font-semibold">{siteConfig.name}</p>
           <p className="text-muted mt-1 text-sm">{siteConfig.title}</p>
           <p className="text-muted mt-1 text-sm">{siteConfig.location.label}</p>
+          {email || phone ? (
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+              {email ? (
+                <a
+                  href={`mailto:${email}`}
+                  className="text-fg hover:text-heading underline-offset-4 transition-colors hover:underline"
+                >
+                  {email}
+                </a>
+              ) : null}
+              {phone ? (
+                <a
+                  href={telHref(phone)}
+                  className="text-fg hover:text-heading underline-offset-4 transition-colors hover:underline"
+                >
+                  {phone}
+                </a>
+              ) : null}
+            </p>
+          ) : null}
         </div>
 
         <nav aria-label="Footer">
