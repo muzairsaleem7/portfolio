@@ -26,7 +26,7 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 ## Layout
 
 - [x] Root layout, Inter font, skip link, JSON-LD
-- [x] Header (sticky, section links, theme toggle, mobile nav)
+- [x] Header (sticky, section links at lg+, theme toggle, mobile nav below lg)
 - [x] Footer (LinkedIn + GitHub + Resume + copyright)
 - [x] Build passes
 
@@ -59,14 +59,31 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 
 ## Quality
 
-- [ ] Visual check in browser, dark + light
-- [ ] Responsive check at 375 / 768 / 1024 / 1440
-- [ ] Accessibility pass (landmarks, focus, contrast, keyboard nav)
-- [ ] Lighthouse mobile home page: Perf / A11y / Best Practices / SEO (record scores below)
-- [x] `pnpm lint`, `pnpm typecheck`, `pnpm build` all clean (first full build)
-- [ ] README.md
-- [ ] Final commit pushed
+- [x] Visual check in browser, dark + light
+- [x] Responsive check at 375 / 768 / 1024 / 1440 (no horizontal overflow at 375; tablet nav fixed)
+- [x] Accessibility pass (landmarks, focus, contrast, keyboard nav; Lighthouse a11y 100)
+- [x] Lighthouse measured (see below)
+- [x] `pnpm lint`, `pnpm typecheck`, `pnpm build` all clean
+- [x] README.md
+- [x] Commits pushed to origin/main
 
-## Lighthouse scores (mobile, home)
+## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome, 2026-11-04)
 
-- Not measured yet.
+Mobile, home page, 3 runs:
+
+| Run | Perf | A11y | Best Practices | SEO | LCP  | TBT    | CLS |
+| --- | ---- | ---- | -------------- | --- | ---- | ------ | --- |
+| 1   | 95   | 100  | 100            | 100 | 1.0s | 260 ms | 0   |
+| 2   | 93   | 100  | 100            | 100 | 1.0s | 300 ms | 0   |
+| 3   | 92   | 100  | 100            | 100 | 1.0s | 350 ms | 0   |
+
+Desktop, home page: Perf 100, A11y 100, Best Practices 100, SEO 100 (LCP 0.3s, TBT 0 ms).
+
+Mobile performance varies 92–95 run to run; the remaining cost is Total Blocking Time from the
+React/Next.js client runtime (~230 KB transferred), not page content. Re-measure on the Vercel
+deployment with PageSpeed Insights; local Windows headless runs are noisier and slower than
+Google's lab environment.
+
+## Open items
+
+See `CONTENT-TODO.md` (site URL, email/phone, profile photo, three real projects, email provider for the contact form).
