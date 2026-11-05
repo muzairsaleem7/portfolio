@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { ArrowUp, FileText, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUp, FileText, Mail } from "lucide-react";
 import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { footer, nav } from "~/content/nav";
 import { Container } from "@/components/ui/Container";
@@ -37,14 +37,10 @@ export async function Footer() {
           </Link>
           <p className="text-muted mt-3 max-w-sm text-sm leading-relaxed">{siteConfig.title}</p>
           <ul className="mt-5 space-y-2 text-sm">
-            <li className="text-muted inline-flex items-center gap-2">
-              <MapPin aria-hidden="true" className="size-4" />
-              {siteConfig.location.label}
-            </li>
+            <li className="text-muted">{siteConfig.location.label}</li>
             {email ? (
               <li>
                 <a href={`mailto:${email}`} className={textLink}>
-                  <Mail aria-hidden="true" className="text-accent size-4" />
                   {email}
                 </a>
               </li>
@@ -52,7 +48,6 @@ export async function Footer() {
             {phone ? (
               <li>
                 <a href={telHref(phone)} className={textLink}>
-                  <Phone aria-hidden="true" className="text-accent size-4" />
                   {phone}
                 </a>
               </li>

@@ -1,4 +1,4 @@
-import { CalendarDays, GraduationCap, School } from "lucide-react";
+import { GraduationCap, School } from "lucide-react";
 import { education } from "~/content/education";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -24,8 +24,7 @@ export function Education() {
             <Card className="flex h-full gap-5" hover>
               <IconTile icon={EDUCATION_ICONS[i] ?? GraduationCap} />
               <div className="min-w-0">
-                <p className="text-accent inline-flex items-center gap-1.5 text-sm font-medium tabular-nums">
-                  <CalendarDays aria-hidden="true" className="size-4" />
+                <p className="text-accent text-sm font-medium tabular-nums">
                   {item.start} – {item.end}
                 </p>
                 <h3 className="mt-2 text-lg font-semibold">{item.degree}</h3>

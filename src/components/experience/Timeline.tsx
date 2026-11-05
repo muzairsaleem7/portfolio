@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, CalendarDays, CircleCheck, MapPin } from "lucide-react";
+import { BriefcaseBusiness, CircleCheck } from "lucide-react";
 import { experience, type Role } from "~/content/experience";
 import { formatDuration, formatRange, toDateTime } from "@/lib/dates";
 import { Reveal } from "@/components/ui/Reveal";
@@ -52,24 +52,15 @@ export function RoleCard({ role, detailed }: { role: Role; detailed: boolean }) 
               </span>
             ) : null}
           </div>
-          <p className="text-muted mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-            <span>
-              {role.employmentType} · {role.workMode}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin aria-hidden="true" className="size-3.5" />
-              {role.location}
-            </span>
+          <p className="text-muted mt-2 text-sm">
+            {role.employmentType} · {role.workMode} · {role.location}
           </p>
         </div>
-        <p className="text-accent inline-flex shrink-0 items-center gap-1.5 text-sm font-medium">
-          <CalendarDays aria-hidden="true" className="size-4" />
-          <span>
-            <time dateTime={toDateTime(role.start)}>{formatRange(role.start, role.end)}</time>
-            {role.end ? (
-              <span className="text-muted"> · {formatDuration(role.start, role.end)}</span>
-            ) : null}
-          </span>
+        <p className="text-accent shrink-0 text-sm font-medium">
+          <time dateTime={toDateTime(role.start)}>{formatRange(role.start, role.end)}</time>
+          {role.end ? (
+            <span className="text-muted"> · {formatDuration(role.start, role.end)}</span>
+          ) : null}
         </p>
       </header>
 

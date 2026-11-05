@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projectsSection, type Project } from "~/content/projects";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";
@@ -36,10 +36,7 @@ export function ProjectCard({ project, index }: Props) {
         )}
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <p className="text-accent flex items-start gap-1.5 text-xs font-medium">
-          <BriefcaseBusiness aria-hidden="true" className="mt-px size-3.5 shrink-0" />
-          {project.context}
-        </p>
+        <p className="text-accent text-xs font-medium">{project.context}</p>
         <h3 className="mt-2 text-lg font-semibold">
           {/* The stretched link makes the whole card clickable with a single tab stop. */}
           <Link

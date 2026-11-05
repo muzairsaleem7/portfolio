@@ -137,6 +137,8 @@ Lighthouse after the refresh, mobile, home page, 10 runs, CPU benchmark index 12
 
 Desktop: 100 in all four categories.
 
+Follow-up trim (same day): removed icons that repeated visible text (calendar and map pin in the timeline and education, the briefcase on project cards, the location/email/phone text icons in the footer) and mounted the mobile menu's links only when the visitor first reaches for the menu button. Home HTML went from 228 KB to 209 KB. 10 runs on a busy host (benchmark index 1168–1522): 95, 94, 82, 88, 89, 84, 97, 92, 96, 86. On the quiet runs (index 1440+) the scores were 95, 94, 97, 96; every run below 90 had a benchmark dip or a slow observed paint. The host had a remote-desktop session and other dev servers running, so this batch is not a clean comparison.
+
 The refresh costs about 2 to 3 mobile points: the home page DOM grew from about 720 to about 1,180 elements (each icon is an inline SVG with child shapes), which adds layout and hydration time. Total Blocking Time is about 250–300 ms against about 200 ms before. Ways to win the points back, if the target matters more than the icon density: fewer decorative icons per card, or CSS-mask icons instead of inline SVG.
 
 ## Open items
