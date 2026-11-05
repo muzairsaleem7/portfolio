@@ -23,18 +23,11 @@ export function Header() {
 
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
             {nav.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-pill text-fg after:bg-accent after:ease-out-soft hover:text-heading relative px-3 py-2 text-sm font-medium transition-colors duration-300 after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 motion-reduce:after:transition-none"
-              >
+              <Link key={link.href} href={link.href} className="nav-link">
                 {link.label}
               </Link>
             ))}
-            <Link
-              href={nav.resume.href}
-              className="rounded-pill text-fg after:bg-accent after:ease-out-soft hover:text-heading relative px-3 py-2 text-sm font-medium transition-colors duration-300 after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 motion-reduce:after:transition-none"
-            >
+            <Link href={nav.resume.href} className="nav-link">
               {nav.resume.label}
             </Link>
           </nav>

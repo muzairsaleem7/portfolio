@@ -5,15 +5,7 @@ type Props = { children: ReactNode; className?: string; size?: "sm" | "md" };
 
 export function Chip({ children, className, size = "md" }: Props) {
   return (
-    <span
-      className={cn(
-        "rounded-pill border-chip-border bg-chip-bg text-chip-fg inline-flex items-center border font-medium whitespace-nowrap transition-colors duration-300",
-        size === "md" ? "px-3.5 py-1.5 text-sm" : "px-2.5 py-1 text-xs",
-        className,
-      )}
-    >
-      {children}
-    </span>
+    <span className={cn("chip", size === "md" ? "chip-md" : "chip-sm", className)}>{children}</span>
   );
 }
 

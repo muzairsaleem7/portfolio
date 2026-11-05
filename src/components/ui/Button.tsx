@@ -5,8 +5,8 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
-const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-out-soft hover:-translate-y-0.5 active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+/** Shared button base; the full utility list lives in globals.css (.btn) to keep repeated markup small. */
+const base = "btn";
 
 const variants: Record<Variant, string> = {
   primary: "btn-primary",

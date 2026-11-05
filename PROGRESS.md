@@ -77,16 +77,20 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 
 ## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome)
 
-Re-measured 2026-11-06 after the contact form change, mobile, home page, 10 consecutive runs:
+Latest build (repeated chip, nav link, and button utilities moved to CSS component classes; home HTML 163 KB to 126 KB), mobile, home page, 10 consecutive runs on 2026-11-06, CPU benchmark index 1414–1613:
 
-| Category       | Result                                             |
-| -------------- | -------------------------------------------------- |
-| Performance    | 97, 97, 97, 96, 98, 85, 98, 97, 97, 97 (median 97) |
-| Accessibility  | 100 on every run                                   |
-| Best Practices | 100 on every run                                   |
-| SEO            | 100 on every run                                   |
+| Category       | Result                                               |
+| -------------- | ---------------------------------------------------- |
+| Performance    | 99, 97, 96, 95, 97, 96, 96, 97, 97, 96 (median 96.5) |
+| Accessibility  | 100 on every run                                     |
+| Best Practices | 100 on every run                                     |
+| SEO            | 100 on every run                                     |
 
-The 85 is a host stall, not the page: on that run the CPU benchmark index dipped to 1292 and the unthrottled LCP observed by Lighthouse was 1.36 s against 0.48 s on the next run. Same build, same server, no other changes.
+Desktop on the same build: 100 in all four categories.
+
+TBT stayed at 200–260 ms on most runs; the smaller HTML did not move it measurably. It is React hydration plus the first cold layout, both framework-level. The batch passing every run reflects a quiet host as much as the change.
+
+Earlier batch the same day, before the class change, 10 runs: 97, 97, 97, 96, 98, 85, 98, 97, 97, 97. The 85 was a host stall: CPU benchmark index 1292 and an unthrottled LCP of 1.36 s against 0.48 s on the next run.
 
 Previous measurement (commit 25f2dba), 11 runs: 96, 95, 96, 95, 93, 96, 96, 98, 97, 97, 96 (median 96).
 

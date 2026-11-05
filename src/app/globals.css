@@ -145,6 +145,27 @@ h4 {
   background: radial-gradient(circle, var(--glow-indigo) 0%, transparent 65%);
 }
 
+/* ---------- Repeated components ----------
+   Long utility lists used many times per page live here instead of in markup:
+   each repetition would otherwise be sent twice (HTML and RSC payload). */
+@layer components {
+  .chip {
+    @apply rounded-pill border-chip-border bg-chip-bg text-chip-fg inline-flex items-center border font-medium whitespace-nowrap transition-colors duration-300;
+  }
+  .chip-md {
+    @apply px-3.5 py-1.5 text-sm;
+  }
+  .chip-sm {
+    @apply px-2.5 py-1 text-xs;
+  }
+  .nav-link {
+    @apply rounded-pill text-fg after:bg-accent after:ease-out-soft hover:text-heading relative px-3 py-2 text-sm font-medium transition-colors duration-300 after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 motion-reduce:after:transition-none;
+  }
+  .btn {
+    @apply rounded-pill ease-out-soft inline-flex items-center justify-center gap-2 font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 hover:-translate-y-0.5 active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0;
+  }
+}
+
 /* ---------- Accent helpers ---------- */
 .accent-bar {
   background: linear-gradient(90deg, #38bdf8, #6366f1);
