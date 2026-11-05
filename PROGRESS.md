@@ -147,6 +147,7 @@ The refresh costs about 2 to 3 mobile points: the home page DOM grew from about 
 - [x] Home page: about 1,180 to 920 elements, HTML 209 KB to 186 KB, RSC payload 105 KB to 97 KB. Visuals unchanged.
 - Lighthouse mobile, 10 runs: 83, 90, 95, 96, 85, 94, 95, 94, 96, 96. On the runs with CPU benchmark index 1480+ the range was 94–96; the 83, 85, and 90 runs had benchmark dips or slow observed paints.
 - Tried and reverted: `content-visibility: auto` on Skills, Education, and Contact. Quiet runs stayed at 93–97, so it was not worth the extra ScrollTrigger refresh logic.
+- Tried and reverted: a `<Suspense>` boundary inside every `Reveal` block, to get selective (chunked) hydration. Even small boundaries were outlined (30 of 41 streamed as hidden segments swapped in by `$RC`), adding a ~200 ms layout task; 5 runs scored 81–93. Same failure mode as the earlier per-section Suspense attempt.
 - What is left in Total Blocking Time is two tasks of about 240 ms each (simulated): the first full-page layout and React hydration. Their length matches the pre-refresh build; Next.js and React set that floor.
 
 ## Open items
