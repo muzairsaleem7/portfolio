@@ -77,20 +77,24 @@ Resume rule: read this file and `CONTENT-TODO.md`, continue at the first uncheck
 
 ## Lighthouse scores (local `next start`, Lighthouse 13.6, headless Chrome)
 
-Final build (commit 25f2dba), mobile, home page, 11 runs on a quiet host (CPU benchmark index 1450–1720):
+Re-measured 2026-11-06 after the contact form change, mobile, home page, 10 consecutive runs:
 
-| Category       | Result                                                 |
-| -------------- | ------------------------------------------------------ |
-| Performance    | 96, 95, 96, 95, 93, 96, 96, 98, 97, 97, 96 (median 96) |
-| Accessibility  | 100 on every run                                       |
-| Best Practices | 100 on every run                                       |
-| SEO            | 100 on every run                                       |
+| Category       | Result                                             |
+| -------------- | -------------------------------------------------- |
+| Performance    | 97, 97, 97, 96, 98, 85, 98, 97, 97, 97 (median 97) |
+| Accessibility  | 100 on every run                                   |
+| Best Practices | 100 on every run                                   |
+| SEO            | 100 on every run                                   |
+
+The 85 is a host stall, not the page: on that run the CPU benchmark index dipped to 1292 and the unthrottled LCP observed by Lighthouse was 1.36 s against 0.48 s on the next run. Same build, same server, no other changes.
+
+Previous measurement (commit 25f2dba), 11 runs: 96, 95, 96, 95, 93, 96, 96, 98, 97, 97, 96 (median 96).
 
 Typical metrics: FCP 1.0 s, LCP 1.0 s, TBT 170–260 ms, CLS 0, Speed Index 1.1–1.5 s.
 
 Desktop, home page: Performance 100, Accessibility 100, Best Practices 100, SEO 100.
 
-Measurement note: other local dev servers can load this machine heavily. When the CPU benchmark index drops below about 1300, mobile performance falls to the mid 80s for every build, including older ones. Compare against a control build when numbers look off.
+Measurement note: other local dev servers, and a busy LinkedIn tab in the debug Chrome window, can load this machine heavily. Close or blank other tabs before measuring. When the CPU benchmark index drops below about 1300, mobile performance falls to the mid 80s for every build, including older ones. Compare against a control build when numbers look off.
 
 Performance lessons recorded for future work:
 
@@ -99,6 +103,13 @@ Performance lessons recorded for future work:
 - `experimental.inlineCss` made FCP slower (1.0 s to 1.2 s) because the HTML grows; keep the external stylesheet.
 - The infinite floating glow animation was removed (entrance animations only, per the prompt).
 
+## Contact form delivery (2026-11-06)
+
+- [x] `/api/contact` sends through Resend's REST API when `RESEND_API_KEY` is set (`CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` optional). No new dependency.
+- [x] Without a key, or when Resend fails, the route returns 503/502 with `fallback: "mailto"`. The form keeps the typed values and offers "Open it in your email app" with a prefilled email to the site address. It no longer reports success when nothing was delivered.
+- [x] Honeypot is now also checked on the server.
+- [x] Verified against `next start`: 503 fallback, 422 validation, 200 honeypot, 400 bad JSON; fallback message and mailto link checked in the browser.
+
 ## Open items
 
-See `CONTENT-TODO.md`: profile photo, project links or screenshots, email provider for the contact form.
+See `CONTENT-TODO.md`: profile photo, project links or screenshots, `RESEND_API_KEY` in Vercel.

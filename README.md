@@ -50,7 +50,15 @@ Add or edit entries in `content/projects.ts`. Each project gets a card on the ho
 
 ### Contact form
 
-The form posts to `src/app/api/contact/route.ts`, which validates the payload, logs it on the server, and returns success. To actually deliver messages, fill in the marked `TODO(email provider)` block (a Resend example is included) and add the provider's API key as an environment variable.
+The form posts to `src/app/api/contact/route.ts`, which validates the payload and sends it through [Resend](https://resend.com) when an API key is configured. No SDK is installed; the route calls Resend's REST API directly.
+
+| Variable             | Required | Purpose                                                                                                                                    |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `RESEND_API_KEY`     | Yes      | Turns on delivery.                                                                                                                         |
+| `CONTACT_TO_EMAIL`   | No       | Inbox that receives messages. Defaults to the email in `site.config.ts`.                                                                   |
+| `CONTACT_FROM_EMAIL` | No       | Sender on a domain verified in Resend. Defaults to `onboarding@resend.dev`, which only delivers to the Resend account owner's own address. |
+
+Without `RESEND_API_KEY`, or if Resend rejects a message, the form never claims success. It tells the visitor the form can't send and offers a link that opens their email app with the message already filled in, addressed to the site email.
 
 ## Site structure
 
@@ -72,7 +80,7 @@ The form posts to `src/app/api/contact/route.ts`, which validates the payload, l
 1. Push this repository to GitHub.
 2. Import the repo in Vercel. Framework preset: Next.js. Package manager: pnpm. No `vercel.json` is needed.
 3. The production URL is `https://muzairsaleem.vercel.app` (set in `site.config.ts`). It drives canonical URLs, the sitemap, robots, Open Graph URLs, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` only to override it, for example on a custom domain.
-4. Optionally add the email provider key for the contact form.
+4. Add `RESEND_API_KEY` (and optionally `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) under Project Settings, Environment Variables, so the contact form delivers messages. See [Contact form](#contact-form).
 
 ## Project layout
 

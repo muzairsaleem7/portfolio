@@ -10,9 +10,9 @@ Open content items. Everything else on the site is verified fact from `portfolio
 
 - [ ] Add project links or screenshots when available.
 
-## 3. Contact form delivery — `src/app/api/contact/route.ts`
+## 3. Contact form delivery: `RESEND_API_KEY`
 
-- [ ] The route handler validates and logs submissions, then returns success. Plug in an email provider at the marked `TODO(email provider)` block (Resend example included) and add the API key as an environment variable in Vercel.
+- [ ] Create a free Resend account with muzairsaleem7@gmail.com and add its API key as `RESEND_API_KEY` in Vercel. Delivery code is already in place. Until the key is set, the form offers visitors a prefilled email instead of sending, so no message is lost. See the README's Contact form section.
 
 ## 4. Optional
 
