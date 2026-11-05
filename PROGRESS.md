@@ -162,7 +162,18 @@ The user chose GitHub Pages instead of Vercel.
 - [x] `scripts/flatten-segment-prefetch.mjs` fixes 404s on Next.js segment prefetch files in the static export.
 - [x] `.github/workflows/deploy.yml`: install, lint, typecheck, build with the base path, upload `out/`, deploy to Pages.
 - [x] Verified with a local server imitating GitHub Pages (sub-path, extensionless `.html`, `404.html`, gzip): all routes 200, unknown routes 404, sprite and images load, client navigation works, GSAP loads, no console errors or failed requests.
-- Lighthouse against that local server was unusable at the time (CPU benchmark index 205–1,097 from other load). First paint was 0.9 s on the less loaded runs. Measure on the live URL with PageSpeed Insights.
+- [x] Deployed: https://muzairsaleem7.github.io/portfolio/ (workflow run 42116913104, commit b5385b6). All routes 200, unknown routes 404, no console errors or failed requests on the live site.
+
+**Lighthouse via PageSpeed Insights on the live site (Google's servers), 2026-11-06, two independent mobile runs:**
+
+| Category       | Mobile (run 1) | Mobile (run 2) | Desktop |
+| -------------- | -------------- | -------------- | ------- |
+| Performance    | 98             | 98             | 100     |
+| Accessibility  | 100            | 100            | —       |
+| Best Practices | 100            | 100            | —       |
+| SEO            | 100            | 100            | —       |
+
+Mobile metrics: FCP 1.0 s, LCP 1.0 s, TBT 30 ms, CLS 0. The 95+ target is met. The local runs in the 80s–94 range came from CPU contention on the development machine, not the site.
 
 ## Open items
 
