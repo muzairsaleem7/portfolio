@@ -1,4 +1,13 @@
+import { Building2, Code2, LayoutDashboard, Target, Workflow, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
+
+/** One icon per project, keyed by slug; unknown slugs fall back to a code mark. */
+const PROJECT_ICONS: Record<string, LucideIcon> = {
+  "multi-tenant-b2b-saas-platform": Building2,
+  "b2b-lead-generation-sales-pipeline": Target,
+  "business-workflow-automation-platform": Workflow,
+  "customer-portal-integrations": LayoutDashboard,
+};
 
 /** Glow positions vary per project so cards don't look identical. */
 const GLOWS = [
@@ -10,6 +19,7 @@ const GLOWS = [
 
 type Props = {
   index: number;
+  slug?: string;
   className?: string;
   /** Zoom slightly when an ancestor with `group` is hovered. */
   hoverZoom?: boolean;
@@ -17,16 +27,21 @@ type Props = {
 
 /**
  * Abstract project header in the banner palette, used in place of a screenshot:
- * navy gradient, 44px grid, two soft glows, the accent bar, and the project number.
+ * theme-aware gradient (zinc in dark, navy in light), 44px grid, two soft glows, the accent bar,
+ * and a per-project icon.
  * Purely decorative, so it is hidden from assistive technology.
  */
-export function ProjectBanner({ index, className, hoverZoom = false }: Props) {
+export function ProjectBanner({ index, slug, className, hoverZoom = false }: Props) {
   const glow = GLOWS[index % GLOWS.length];
+  const Icon = (slug && PROJECT_ICONS[slug]) || Code2;
   return (
-    <div aria-hidden="true" className={cn("relative overflow-hidden bg-[#0b1526]", className)}>
+    <div
+      aria-hidden="true"
+      className={cn("relative overflow-hidden bg-[var(--banner-base)]", className)}
+    >
       <div
         className={cn(
-          "absolute inset-0 bg-[linear-gradient(115deg,#0b1526_0%,#0f2240_55%,#123a5e_100%)]",
+          "absolute inset-0 bg-[image:var(--banner-gradient)]",
           hoverZoom &&
             "ease-out-soft transition-transform duration-700 group-hover:scale-[1.04] motion-reduce:transition-none",
         )}
@@ -49,8 +64,14 @@ export function ProjectBanner({ index, className, hoverZoom = false }: Props) {
       <span className="absolute bottom-4 left-5 font-mono text-sm font-semibold tracking-[0.2em] text-[#7dd3fc]">
         {String(index + 1).padStart(2, "0")}
       </span>
-      <span className="absolute right-5 bottom-3 font-mono text-2xl text-[rgba(148,163,184,0.55)]">
-        {"</>"}
+      <span
+        className={cn(
+          "absolute top-1/2 left-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl border border-[rgba(125,211,252,0.35)] bg-[rgba(0,0,0,0.45)] text-[#7dd3fc] shadow-[0_18px_40px_-18px_rgba(56,189,248,0.7)] backdrop-blur-sm",
+          hoverZoom &&
+            "ease-out-soft transition-transform duration-500 group-hover:-translate-y-[58%] group-hover:scale-105 motion-reduce:transition-none",
+        )}
+      >
+        <Icon className="size-7" strokeWidth={1.6} />
       </span>
     </div>
   );

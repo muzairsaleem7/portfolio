@@ -36,7 +36,7 @@ export function Avatar({ size = 160, className, priority = false }: Props) {
         <div
           role="img"
           aria-label={`${siteConfig.name} initials`}
-          className="bg-navy-900 flex h-full w-full items-center justify-center rounded-full font-bold tracking-tight text-white select-none"
+          className="flex h-full w-full items-center justify-center rounded-full bg-[var(--avatar-bg)] font-bold tracking-tight text-white select-none"
           style={{ fontSize: Math.round(size * 0.34) }}
         >
           {siteConfig.initials}

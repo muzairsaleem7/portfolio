@@ -20,6 +20,7 @@ export const experience = {
   intro:
     "From a first engineering role at a Lahore software house to independent product work with founders. Newest first.",
   viewAll: { label: "Full experience", href: "/experience" },
+  currentBadge: "Current",
 } as const;
 
 export const roles: readonly Role[] = [

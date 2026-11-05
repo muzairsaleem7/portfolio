@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BriefcaseBusiness,
+  CircleCheck,
+  ExternalLink,
+  Info,
+  Lightbulb,
+  Target,
+} from "lucide-react";
+import { GithubIcon } from "@/components/ui/BrandIcons";
+import { IconTile } from "@/components/ui/IconTile";
 import { notFound } from "next/navigation";
 import { getProject, projects, projectsSection } from "~/content/projects";
 import { siteConfig } from "~/site.config";
@@ -44,12 +56,15 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   return (
     <Container className="py-16 sm:py-20 lg:py-24">
       <Reveal className="max-w-3xl">
-        <p className="text-accent text-xs font-semibold tracking-[0.22em] uppercase">{t.eyebrow}</p>
+        <p className="eyebrow">{t.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-bold text-balance sm:text-4xl lg:text-5xl">
           {project.title}
         </h1>
         <p className="text-fg mt-4 text-base leading-relaxed sm:text-lg">{project.summary}</p>
-        <p className="text-muted mt-3 text-sm">{project.context}</p>
+        <p className="text-muted mt-3 inline-flex items-center gap-1.5 text-sm">
+          <BriefcaseBusiness aria-hidden="true" className="size-4" />
+          {project.context}
+        </p>
         <div className="mt-6">
           <ChipList items={project.stack} label={t.stackLabel} />
         </div>
@@ -67,7 +82,11 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             priority
           />
         ) : (
-          <ProjectBanner index={index} className="aspect-[16/6] w-full sm:aspect-[16/5]" />
+          <ProjectBanner
+            index={index}
+            slug={project.slug}
+            className="aspect-[16/6] w-full sm:aspect-[16/5]"
+          />
         )}
       </Reveal>
 
@@ -75,22 +94,29 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         <div className="space-y-6">
           <Reveal delay={120}>
             <Card>
-              <h2 className="text-lg font-semibold">{t.problemHeading}</h2>
+              <div className="flex items-center gap-3">
+                <IconTile icon={Target} size="sm" />
+                <h2 className="text-lg font-semibold">{t.problemHeading}</h2>
+              </div>
               <p className="text-fg mt-3 leading-relaxed">{project.problem}</p>
             </Card>
           </Reveal>
           <Reveal delay={200}>
             <Card>
-              <h2 className="text-lg font-semibold">{t.solutionHeading}</h2>
+              <div className="flex items-center gap-3">
+                <IconTile icon={Lightbulb} size="sm" />
+                <h2 className="text-lg font-semibold">{t.solutionHeading}</h2>
+              </div>
               {project.solution ? (
                 <p className="text-fg mt-3 leading-relaxed">{project.solution}</p>
               ) : null}
               <ul className="mt-4 space-y-3">
                 {project.highlights.map((h) => (
                   <li key={h} className="text-fg flex gap-3 leading-relaxed">
-                    <span
+                    <CircleCheck
                       aria-hidden="true"
-                      className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[linear-gradient(135deg,#38bdf8,#6366f1)]"
+                      className="text-accent mt-1 size-[18px] shrink-0"
+                      strokeWidth={2}
                     />
                     <span>{h}</span>
                   </li>
@@ -102,7 +128,8 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
         <Reveal delay={160}>
           <Card className="h-full">
-            <h2 className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
+            <h2 className="text-accent inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase">
+              <Info aria-hidden="true" className="size-4" />
               {t.detailsHeading}
             </h2>
             <dl className="mt-5 space-y-5 text-sm">
@@ -126,11 +153,13 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                   <dd className="mt-2 flex flex-wrap gap-2">
                     {project.links.live ? (
                       <Button href={project.links.live} external size="sm">
+                        <ExternalLink aria-hidden="true" className="size-4" />
                         {t.liveLabel}
                       </Button>
                     ) : null}
                     {project.links.repo ? (
                       <Button href={project.links.repo} external size="sm" variant="secondary">
+                        <GithubIcon size={15} />
                         {t.repoLabel}
                       </Button>
                     ) : null}
@@ -144,9 +173,13 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
       <Reveal className="mt-12 flex flex-wrap gap-3">
         <Button href={projectsSection.viewAll.href} variant="secondary">
-          <span aria-hidden="true">←</span> {t.backLabel}
+          <ArrowLeft aria-hidden="true" className="size-4" />
+          {t.backLabel}
         </Button>
-        <Button href="/#contact">{t.ctaLabel}</Button>
+        <Button href="/#contact">
+          {t.ctaLabel}
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </Button>
       </Reveal>
     </Container>
   );

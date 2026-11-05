@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowRight, BriefcaseBusiness, FileText } from "lucide-react";
 import { experience, roles } from "~/content/experience";
 import { siteConfig } from "~/site.config";
 import { Container } from "@/components/ui/Container";
@@ -17,7 +18,8 @@ export default function ExperiencePage() {
   return (
     <Container className="py-16 sm:py-20 lg:py-24">
       <Reveal className="max-w-2xl">
-        <p className="text-accent text-xs font-semibold tracking-[0.22em] uppercase">
+        <p className="eyebrow">
+          <BriefcaseBusiness aria-hidden="true" className="size-3.5" strokeWidth={2.2} />
           {experience.eyebrow}
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">{experience.heading}</h1>
@@ -27,8 +29,12 @@ export default function ExperiencePage() {
         <Timeline roles={roles} detailed />
       </div>
       <Reveal className="mt-12 flex flex-wrap gap-3">
-        <Button href="/#contact">Work with me</Button>
+        <Button href="/#contact">
+          Work with me
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </Button>
         <Button href="/resume" variant="secondary">
+          <FileText aria-hidden="true" className="size-4" />
           View resume
         </Button>
       </Reveal>

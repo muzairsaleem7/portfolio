@@ -10,8 +10,8 @@ type Props = {
 
 /**
  * Entrance-animation wrapper. This is a server component: it only emits a `data-reveal`
- * attribute, and a single client-side observer (RevealObserver, mounted once in the root layout)
- * adds `is-visible` when the element scrolls into view. Keeping this on the server avoids a
+ * attribute, and the client-side MotionController (GSAP, mounted once in the root layout)
+ * animates it in when it scrolls into view. Keeping this on the server avoids a
  * client boundary per section and keeps section markup out of the RSC payload.
  *
  * The hidden state only applies when <html class="js"> (see globals.css), so content is always

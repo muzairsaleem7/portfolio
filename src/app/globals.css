@@ -28,25 +28,30 @@
 }
 
 /* ---------- Tokens ---------- */
+/* Dark theme: neutral black and zinc grays; sky/indigo stay as the only color accents. */
 :root {
   color-scheme: dark;
-  --bg: #0b1526;
-  --bg-gradient: linear-gradient(115deg, #0b1526 0%, #0f2240 55%, #123a5e 100%);
-  --fg: #cbd5e1;
-  --heading: #ffffff;
-  --muted: #94a3b8;
+  --bg: #09090b;
+  --bg-gradient: linear-gradient(115deg, #09090b 0%, #101012 55%, #17171a 100%);
+  --fg: #d4d4d8;
+  --heading: #fafafa;
+  --muted: #a1a1aa;
   --accent: #7dd3fc;
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-strong: rgba(255, 255, 255, 0.07);
-  --line: rgba(255, 255, 255, 0.1);
-  --chip-fg: #e0f2fe;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-strong: rgba(255, 255, 255, 0.065);
+  --line: rgba(255, 255, 255, 0.09);
+  --chip-fg: #e4e4e7;
   --chip-bg: rgba(255, 255, 255, 0.04);
-  --chip-border: rgba(125, 211, 252, 0.45);
-  --grid: rgba(255, 255, 255, 0.045);
-  --glow-sky: rgba(56, 189, 248, 0.22);
-  --glow-indigo: rgba(99, 102, 241, 0.18);
-  --header-bg: rgba(11, 21, 38, 0.72);
+  --chip-border: rgba(161, 161, 170, 0.35);
+  --grid: rgba(255, 255, 255, 0.035);
+  --glow-sky: rgba(56, 189, 248, 0.11);
+  --glow-indigo: rgba(99, 102, 241, 0.1);
+  --header-bg: rgba(9, 9, 11, 0.75);
+  --banner-base: #0c0c0e;
+  --banner-gradient: linear-gradient(115deg, #0c0c0e 0%, #151518 55%, #1e1e22 100%);
+  --avatar-bg: #18181b;
   --focus: #7dd3fc;
+  --spotlight: rgba(56, 189, 248, 0.12);
 }
 
 [data-theme="light"] {
@@ -67,7 +72,11 @@
   --glow-sky: rgba(56, 189, 248, 0.28);
   --glow-indigo: rgba(99, 102, 241, 0.16);
   --header-bg: rgba(246, 249, 252, 0.78);
+  --banner-base: #0b1526;
+  --banner-gradient: linear-gradient(115deg, #0b1526 0%, #0f2240 55%, #123a5e 100%);
+  --avatar-bg: #0b1526;
   --focus: #0369a1;
+  --spotlight: rgba(2, 132, 199, 0.09);
 }
 
 /* ---------- Base ---------- */
@@ -166,6 +175,113 @@ h4 {
   }
 }
 
+/* ---------- Icons, eyebrows, status ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.icon-tile {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  color: var(--accent);
+  border: 1px solid var(--chip-border);
+  background:
+    linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(99, 102, 241, 0.16)), var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform 400ms var(--ease-out-soft),
+    box-shadow 400ms var(--ease-out-soft);
+}
+.icon-tile-sm {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.65rem;
+}
+.card-hover:hover .icon-tile {
+  transform: translateY(-2px) rotate(-4deg);
+  box-shadow: 0 10px 24px -14px rgba(56, 189, 248, 0.7);
+}
+.status-dot {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #34d399;
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #34d399;
+  animation: status-ping 2.4s var(--ease-out-soft) infinite;
+}
+@keyframes status-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Cursor spotlight on hoverable cards. --mx/--my are set by the motion controller. */
+.card-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    var(--spotlight),
+    transparent 45%
+  );
+  transition: opacity 400ms var(--ease-out-soft);
+}
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Active section in the header nav (set by the motion controller). */
+.nav-link.is-active {
+  color: var(--heading);
+}
+.nav-link.is-active::after {
+  scale: 1 1;
+}
+
+/* Reading progress under the header; scaled by GSAP ScrollTrigger. */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
 /* ---------- Accent helpers ---------- */
 .accent-bar {
   background: linear-gradient(90deg, #38bdf8, #6366f1);
@@ -175,6 +291,10 @@ h4 {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+/* Darker stops on the light theme keep large-text contrast above 3:1. */
+[data-theme="light"] .text-gradient {
+  background-image: linear-gradient(90deg, #0284c7, #4f46e5);
 }
 .btn-primary {
   background: linear-gradient(90deg, #38bdf8, #818cf8);
@@ -193,6 +313,16 @@ h4 {
     box-shadow 400ms var(--ease-out-soft),
     background-color 300ms var(--ease-out-soft);
 }
+/* Card variants: unlayered like .card, so they must be declared after it to win. */
+.hero-card {
+  background: var(--surface-strong);
+}
+.card-feature {
+  border-color: var(--chip-border);
+  background:
+    linear-gradient(150deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.1) 55%, transparent),
+    var(--surface);
+}
 .card-hover:hover {
   transform: translateY(-3px);
   border-color: var(--chip-border);
@@ -208,6 +338,10 @@ html.js [data-reveal] {
     opacity 700ms var(--ease-out-soft),
     transform 700ms var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
+}
+/* Once GSAP is loaded it tweens these inline; the CSS transition would fight it. */
+html.gsap-ready [data-reveal] {
+  transition: none;
 }
 html.js [data-reveal].is-visible {
   opacity: 1;
@@ -240,6 +374,12 @@ html.js [data-reveal].is-visible {
   }
   .animate-rise {
     animation: none;
+  }
+  .status-dot::after {
+    animation: none;
+  }
+  .scroll-progress {
+    display: none;
   }
   .card,
   .card-hover:hover {

@@ -1,3 +1,4 @@
+import { ArrowRight, FolderKanban } from "lucide-react";
 import { projects, projectsSection } from "~/content/projects";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -15,11 +16,15 @@ export function Projects() {
           eyebrow={projectsSection.eyebrow}
           heading={projectsSection.heading}
           intro={projectsSection.intro}
+          icon={FolderKanban}
         />
         <Reveal delay={120} className="shrink-0">
-          <Button href={projectsSection.viewAll.href} variant="secondary">
+          <Button href={projectsSection.viewAll.href} variant="secondary" className="group/cta">
             {projectsSection.viewAll.label}
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              aria-hidden="true"
+              className="ease-out-soft size-4 transition-transform duration-300 group-hover/cta:translate-x-0.5"
+            />
           </Button>
         </Reveal>
       </div>

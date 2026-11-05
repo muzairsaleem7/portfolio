@@ -24,4 +24,6 @@ export const footer = {
   resumeLabel: "Resume",
   rights: "All rights reserved.",
   builtWith: "Built with Next.js. Deployed on Vercel.",
+  backToTop: "Back to top",
+  emailLabel: "Email",
 } as const;

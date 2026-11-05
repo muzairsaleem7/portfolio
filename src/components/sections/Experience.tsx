@@ -1,3 +1,4 @@
+import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import { experience, roles } from "~/content/experience";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -14,11 +15,15 @@ export function Experience() {
           eyebrow={experience.eyebrow}
           heading={experience.heading}
           intro={experience.intro}
+          icon={BriefcaseBusiness}
         />
         <Reveal delay={120} className="shrink-0">
-          <Button href={experience.viewAll.href} variant="secondary">
+          <Button href={experience.viewAll.href} variant="secondary" className="group/cta">
             {experience.viewAll.label}
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              aria-hidden="true"
+              className="ease-out-soft size-4 transition-transform duration-300 group-hover/cta:translate-x-0.5"
+            />
           </Button>
         </Reveal>
       </div>

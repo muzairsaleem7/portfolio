@@ -6,7 +6,7 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PersonJsonLd } from "@/components/seo/JsonLd";
-import { RevealObserver } from "@/components/ui/RevealObserver";
+import { MotionController } from "@/components/ui/MotionController";
 import "./globals.css";
 
 const inter = Inter({
@@ -56,7 +56,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0b1526" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
     { media: "(prefers-color-scheme: light)", color: "#f6f9fc" },
   ],
 };
@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <PersonJsonLd />
-        <RevealObserver />
+        <MotionController />
       </body>
     </html>
   );

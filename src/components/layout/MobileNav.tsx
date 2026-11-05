@@ -2,7 +2,26 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import {
+  BriefcaseBusiness,
+  FileText,
+  FolderKanban,
+  Layers,
+  Mail,
+  UserRound,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 import { nav } from "~/content/nav";
+
+const ICONS: Record<string, LucideIcon> = {
+  "/#about": UserRound,
+  "/#services": Layers,
+  "/#experience": BriefcaseBusiness,
+  "/#projects": FolderKanban,
+  "/#skills": Wrench,
+  "/#contact": Mail,
+};
 
 type Item = { label: string; href: string };
 
@@ -64,29 +83,44 @@ export function MobileNav({ items }: { items: readonly Item[] }) {
         <div className="overflow-hidden">
           <nav aria-label="Mobile" className="mx-auto max-w-6xl px-5 py-4 sm:px-8">
             <ul className="flex flex-col">
-              {items.map((item, i) => (
-                <li
-                  key={item.href}
-                  style={{ transitionDelay: open ? `${60 + i * 40}ms` : "0ms" }}
-                  className={`ease-out-soft transition-[opacity,transform] duration-400 motion-reduce:transition-none ${
-                    open ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
-                  }`}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="text-heading hover:bg-surface-strong block rounded-lg px-3 py-3 text-base font-medium transition-colors"
+              {items.map((item, i) => {
+                const Icon = ICONS[item.href];
+                return (
+                  <li
+                    key={item.href}
+                    style={{ transitionDelay: open ? `${60 + i * 40}ms` : "0ms" }}
+                    className={`ease-out-soft transition-[opacity,transform] duration-400 motion-reduce:transition-none ${
+                      open ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
+                    }`}
                   >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="text-heading hover:bg-surface-strong flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium transition-colors"
+                    >
+                      {Icon ? (
+                        <Icon
+                          aria-hidden="true"
+                          className="text-accent size-[18px]"
+                          strokeWidth={1.8}
+                        />
+                      ) : null}
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
               <li className="border-line mt-2 border-t pt-3">
                 <Link
                   href={nav.resume.href}
                   onClick={() => setOpen(false)}
-                  className="text-heading hover:bg-surface-strong block rounded-lg px-3 py-3 text-base font-medium transition-colors"
+                  className="text-heading hover:bg-surface-strong flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium transition-colors"
                 >
+                  <FileText
+                    aria-hidden="true"
+                    className="text-accent size-[18px]"
+                    strokeWidth={1.8}
+                  />
                   {nav.resume.label}
                 </Link>
               </li>

@@ -72,8 +72,14 @@ Without `RESEND_API_KEY`, or if Resend rejects a message, the form never claims 
 ## Theme and motion
 
 - Dark/light theme with a toggle in the header. Default follows `prefers-color-scheme`; the choice is stored in `localStorage`.
-- Tokens live in `src/app/globals.css` (`:root` for dark, `[data-theme="light"]` for light).
-- Entrance animations use a small IntersectionObserver component (`src/components/ui/Reveal.tsx`). They are disabled for `prefers-reduced-motion` and never hide content when JavaScript is unavailable.
+- Tokens live in `src/app/globals.css` (`:root` for dark, `[data-theme="light"]` for light). Dark mode uses neutral black and zinc grays; light mode keeps the navy banner palette. Sky and indigo are the accents in both.
+- Icons come from `lucide-react` and render on the server, so they add no client JavaScript. Lucide v1 has no brand logos; GitHub, LinkedIn, and WhatsApp marks live in `src/components/ui/BrandIcons.tsx`.
+- Motion is driven by GSAP from one client component, `src/components/ui/MotionController.tsx`, mounted in the root layout. Sections wrap content in `Reveal`, a server component that only adds `data-reveal`.
+  - The hero animates with CSS only, so first paint never waits on JavaScript.
+  - Anything on screen at load is revealed by an IntersectionObserver with a CSS transition.
+  - GSAP and ScrollTrigger load on the visitor's first scroll, touch, pointer move, or key press. They then drive batched scroll reveals, the experience timeline line, a slow parallax on the background glows, the reading progress bar under the header, the active nav link, and a magnetic pull on primary buttons.
+  - A cursor spotlight on hoverable cards is a CSS gradient positioned by one pointer listener.
+  - `prefers-reduced-motion` shows everything immediately with no motion. Without JavaScript nothing is hidden. If GSAP fails to load, everything is revealed after 3 seconds.
 
 ## Deploy (Vercel)
 
@@ -90,7 +96,7 @@ site.config.ts           identity, links, contact
 src/app/                 routes, metadata, OG image, sitemap, robots
 src/components/layout/   Header, Footer, ThemeToggle, MobileNav, SkipLink
 src/components/sections/ home page sections
-src/components/ui/       Button, Card, Chip, Container, Section, Reveal, Avatar
+src/components/ui/       Button, Card, Chip, Container, Section, Reveal, Avatar, IconTile, BrandIcons, MotionController
 src/components/...       experience, projects, resume, forms, seo
 src/lib/                 dates, theme, cn
 public/images/           profile.jpg and project screenshots (you add these)

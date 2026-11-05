@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
+import { CircleAlert, CircleCheck, LoaderCircle, Send } from "lucide-react";
 import { contact } from "~/content/contact";
 import { siteConfig } from "~/site.config";
 import { Button } from "@/components/ui/Button";
@@ -173,11 +174,19 @@ export function ContactForm() {
           disabled={status === "sending"}
           aria-busy={status === "sending"}
         >
+          {status === "sending" ? (
+            <LoaderCircle aria-hidden="true" className="size-[18px] animate-spin" />
+          ) : (
+            <Send aria-hidden="true" className="size-[18px]" />
+          )}
           {status === "sending" ? contact.form.sending : contact.form.submit}
         </Button>
         <p role="status" aria-live="polite" className="text-sm">
           {status === "success" ? (
-            <span className="text-accent">{contact.form.success}</span>
+            <span className="text-accent inline-flex items-start gap-2">
+              <CircleCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+              {contact.form.success}
+            </span>
           ) : status === "fallback" ? (
             <span className="text-fg">
               {contact.form.fallback}{" "}
@@ -189,7 +198,8 @@ export function ContactForm() {
               </a>
             </span>
           ) : status === "error" ? (
-            <span className="text-red-300 [[data-theme=light]_&]:text-red-700">
+            <span className="inline-flex items-start gap-2 text-red-300 [[data-theme=light]_&]:text-red-700">
+              <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
               {contact.form.error}
             </span>
           ) : null}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FolderKanban } from "lucide-react";
 import { projects, projectsSection } from "~/content/projects";
 import { siteConfig } from "~/site.config";
 import { Container } from "@/components/ui/Container";
@@ -16,7 +17,8 @@ export default function ProjectsPage() {
   return (
     <Container className="py-16 sm:py-20 lg:py-24">
       <Reveal className="max-w-2xl">
-        <p className="text-accent text-xs font-semibold tracking-[0.22em] uppercase">
+        <p className="eyebrow">
+          <FolderKanban aria-hidden="true" className="size-3.5" strokeWidth={2.2} />
           {projectsSection.eyebrow}
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">

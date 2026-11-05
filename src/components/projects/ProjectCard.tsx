@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { projectsSection, type Project } from "~/content/projects";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";
@@ -31,11 +32,14 @@ export function ProjectCard({ project, index }: Props) {
             className="ease-out-soft object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
           />
         ) : (
-          <ProjectBanner index={index} hoverZoom className="h-full w-full" />
+          <ProjectBanner index={index} slug={project.slug} hoverZoom className="h-full w-full" />
         )}
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <p className="text-accent text-xs font-medium">{project.context}</p>
+        <p className="text-accent flex items-start gap-1.5 text-xs font-medium">
+          <BriefcaseBusiness aria-hidden="true" className="mt-px size-3.5 shrink-0" />
+          {project.context}
+        </p>
         <h3 className="mt-2 text-lg font-semibold">
           {/* The stretched link makes the whole card clickable with a single tab stop. */}
           <Link
@@ -51,12 +55,10 @@ export function ProjectCard({ project, index }: Props) {
         </div>
         <p className="text-heading mt-5 inline-flex items-center gap-1.5 text-sm font-semibold">
           {projectsSection.cardCta}
-          <span
+          <ArrowUpRight
             aria-hidden="true"
-            className="ease-out-soft transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
-          >
-            →
-          </span>
+            className="ease-out-soft text-accent size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+          />
         </p>
       </div>
     </Card>

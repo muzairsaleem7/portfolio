@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { Moon, Sun } from "lucide-react";
 import { nav } from "~/content/nav";
 import { applyTheme, readTheme, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
@@ -46,37 +47,20 @@ export function ThemeToggle() {
       title={label}
       className="rounded-pill border-line bg-surface text-heading ease-out-soft hover:border-chip-border hover:bg-surface-strong relative inline-flex h-10 w-10 items-center justify-center border transition-[background-color,border-color,transform] duration-300 active:scale-95 motion-reduce:transition-none"
     >
-      {/* Sun */}
-      <svg
+      <Sun
         aria-hidden="true"
-        viewBox="0 0 24 24"
-        className={`ease-out-soft absolute h-5 w-5 transition-[opacity,transform] duration-500 motion-reduce:transition-none ${
+        strokeWidth={1.8}
+        className={`ease-out-soft absolute size-5 transition-[opacity,transform] duration-500 motion-reduce:transition-none ${
           isDark ? "scale-50 rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100"
         }`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-      </svg>
-      {/* Moon */}
-      <svg
+      />
+      <Moon
         aria-hidden="true"
-        viewBox="0 0 24 24"
-        className={`ease-out-soft absolute h-5 w-5 transition-[opacity,transform] duration-500 motion-reduce:transition-none ${
+        strokeWidth={1.8}
+        className={`ease-out-soft absolute size-5 transition-[opacity,transform] duration-500 motion-reduce:transition-none ${
           isDark ? "scale-100 rotate-0 opacity-100" : "scale-50 -rotate-90 opacity-0"
         }`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-      </svg>
+      />
     </button>
   );
 }

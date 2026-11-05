@@ -28,7 +28,12 @@ type CommonProps = {
   children: ReactNode;
 };
 
-type LinkProps = CommonProps & { href: string; external?: boolean };
+type LinkProps = CommonProps & {
+  href: string;
+  external?: boolean;
+  /** Passed to next/link. Turn off for links visible on load whose route isn't a likely next step. */
+  prefetch?: boolean;
+};
 type NativeProps = CommonProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
 
 export function Button(props: LinkProps | NativeProps) {
@@ -36,7 +41,7 @@ export function Button(props: LinkProps | NativeProps) {
   const classes = cn(base, variants[variant], sizes[size], className);
 
   if (props.href !== undefined) {
-    const { href, external } = props;
+    const { href, external, prefetch } = props;
     if (external) {
       return (
         <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
@@ -45,7 +50,7 @@ export function Button(props: LinkProps | NativeProps) {
       );
     }
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} prefetch={prefetch}>
         {children}
       </Link>
     );

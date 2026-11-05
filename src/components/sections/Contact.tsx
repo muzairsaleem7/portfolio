@@ -1,3 +1,4 @@
+import { CalendarCheck, Mail, MapPin, MessageSquareText, Phone, Send } from "lucide-react";
 import { contact } from "~/content/contact";
 import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { Section } from "@/components/ui/Section";
@@ -5,7 +6,12 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { IconTile } from "@/components/ui/IconTile";
+import { LinkedinIcon, WhatsappIcon } from "@/components/ui/BrandIcons";
 import { ContactForm } from "@/components/forms/ContactForm";
+
+const rowLink =
+  "group border-line bg-surface hover:border-chip-border hover:bg-surface-strong ease-out-soft flex items-center gap-4 rounded-2xl border p-4 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 motion-reduce:transition-none";
 
 export function Contact() {
   const { email, phone, whatsapp } = siteConfig.contact;
@@ -18,17 +24,24 @@ export function Contact() {
             eyebrow={contact.eyebrow}
             heading={contact.heading}
             intro={contact.intro}
+            icon={MessageSquareText}
           />
 
           <Reveal delay={120} className="mt-8">
-            <Card>
-              <h3 className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
-                {contact.availabilityLabel}
-              </h3>
-              <p className="text-fg mt-3 text-sm leading-relaxed sm:text-base">
-                {siteConfig.availability}
-              </p>
-              <p className="text-muted mt-3 text-sm">{siteConfig.location.label}</p>
+            <Card className="card-feature flex gap-4">
+              <IconTile icon={CalendarCheck} />
+              <div className="min-w-0">
+                <h3 className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
+                  {contact.availabilityLabel}
+                </h3>
+                <p className="text-fg mt-2 text-sm leading-relaxed sm:text-base">
+                  {siteConfig.availability}
+                </p>
+                <p className="text-muted mt-3 inline-flex items-center gap-1.5 text-sm">
+                  <MapPin aria-hidden="true" className="size-4" />
+                  {siteConfig.location.label}
+                </p>
+              </div>
             </Card>
           </Reveal>
 
@@ -37,60 +50,62 @@ export function Contact() {
               <h3 className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
                 {contact.directHeading}
               </h3>
-              <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+              <ul className="mt-3 grid gap-3">
                 {email ? (
-                  <div>
-                    <dt className="text-muted">{contact.emailFieldLabel}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={`mailto:${email}`}
-                        className="text-heading font-medium break-all underline-offset-4 hover:underline"
-                      >
-                        {email}
-                      </a>
-                    </dd>
-                  </div>
+                  <li>
+                    <a href={`mailto:${email}`} className={rowLink}>
+                      <IconTile icon={Mail} size="sm" />
+                      <span className="min-w-0">
+                        <span className="text-muted block text-xs">{contact.emailFieldLabel}</span>
+                        <span className="text-heading block font-medium break-all">{email}</span>
+                      </span>
+                    </a>
+                  </li>
                 ) : null}
                 {phone ? (
-                  <div>
-                    <dt className="text-muted">{contact.phoneFieldLabel}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={telHref(phone)}
-                        className="text-heading font-medium underline-offset-4 hover:underline"
-                      >
-                        {phone}
-                      </a>
-                    </dd>
-                  </div>
+                  <li>
+                    <a href={telHref(phone)} className={rowLink}>
+                      <IconTile icon={Phone} size="sm" />
+                      <span className="min-w-0">
+                        <span className="text-muted block text-xs">{contact.phoneFieldLabel}</span>
+                        <span className="text-heading block font-medium">{phone}</span>
+                      </span>
+                    </a>
+                  </li>
                 ) : null}
-              </dl>
+              </ul>
             </Reveal>
           ) : null}
 
           <Reveal delay={240} className="mt-6 flex flex-wrap gap-3">
             {email ? (
-              <Button href={`mailto:${email}`} external>
-                {contact.emailLabel}
-              </Button>
+              <span data-magnetic className="inline-flex">
+                <Button href={`mailto:${email}`} external>
+                  <Send aria-hidden="true" className="size-4" />
+                  {contact.emailLabel}
+                </Button>
+              </span>
             ) : null}
             {phone && whatsapp ? (
               <Button href={whatsappHref(phone)} external variant="secondary">
+                <WhatsappIcon size={16} />
                 {contact.whatsappLabel}
-                <span aria-hidden="true">↗</span>
               </Button>
             ) : null}
             <Button href={siteConfig.links.linkedin} external variant="secondary">
+              <LinkedinIcon size={15} />
               {contact.linkedinLabel}
-              <span aria-hidden="true">↗</span>
             </Button>
           </Reveal>
         </div>
 
         <Reveal delay={160}>
           <Card className="sm:p-8">
-            <h3 className="text-lg font-semibold">{contact.form.heading}</h3>
-            <div className="mt-5">
+            <div className="flex items-center gap-3">
+              <IconTile icon={Send} size="sm" />
+              <h3 className="text-lg font-semibold">{contact.form.heading}</h3>
+            </div>
+            <div className="mt-6">
               <ContactForm />
             </div>
           </Card>

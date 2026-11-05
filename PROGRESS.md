@@ -114,6 +114,31 @@ Performance lessons recorded for future work:
 - [x] Honeypot is now also checked on the server.
 - [x] Verified against `next start`: 503 fallback, 422 validation, 200 honeypot, 400 bad JSON; fallback message and mailto link checked in the browser.
 
+## UI refresh: Lucide icons, GSAP motion, black and gray dark mode (2026-11-06)
+
+Requested by the user: lucide-react icons, GSAP animations, an industry-standard UI that presents five years of experience, and black and gray shades in dark mode. Copy and facts are unchanged; no metrics were added.
+
+- [x] Icons across the header, hero, section eyebrows, cards, timeline, projects, contact, footer, mobile menu, and subpages. Server-rendered, so no client JS cost.
+- [x] Hero: availability badge with a pulsing dot, gradient accent on the headline, icon CTAs including Resume, labelled core stack, profile card with icon facts, "Currently" line, and social buttons.
+- [x] Icon tiles on About, Services, Skills, and Education cards; experience timeline with icon nodes, a "Current" badge, and a line drawn on scroll; one icon per project in the banners.
+- [x] GSAP motion (see README, Theme and motion). Loaded on first interaction so it stays out of the page-load window.
+- [x] Dark mode switched from navy to neutral black and zinc grays; light mode unchanged apart from a darker heading gradient for contrast.
+- [x] Verified at 375 and 1440 in both themes; no horizontal overflow; mobile menu, reveals, timeline draw, and active nav checked in the browser.
+- [x] Fixed during the work: description-list markup (icons moved inside `dt`), light-theme gradient contrast, and a `/resume` prefetch from the hero link that added a long task during load.
+
+Lighthouse after the refresh, mobile, home page, 10 runs, CPU benchmark index 1296–1548:
+
+| Category       | Result                                             |
+| -------------- | -------------------------------------------------- |
+| Performance    | 94, 94, 92, 92, 94, 95, 95, 94, 95, 94 (median 94) |
+| Accessibility  | 100 on every run                                   |
+| Best Practices | 100 on every run                                   |
+| SEO            | 100 on every run                                   |
+
+Desktop: 100 in all four categories.
+
+The refresh costs about 2 to 3 mobile points: the home page DOM grew from about 720 to about 1,180 elements (each icon is an inline SVG with child shapes), which adds layout and hydration time. Total Blocking Time is about 250–300 ms against about 200 ms before. Ways to win the points back, if the target matters more than the icon density: fewer decorative icons per card, or CSS-mask icons instead of inline SVG.
+
 ## Open items
 
 See `CONTENT-TODO.md`: profile photo, project links or screenshots, `RESEND_API_KEY` in Vercel.
