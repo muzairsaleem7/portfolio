@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, CircleCheck } from "lucide-react";
+import { BriefcaseBusiness, CircleCheck } from "@/components/ui/icons";
 import { experience, type Role } from "~/content/experience";
 import { formatDuration, formatRange, toDateTime } from "@/lib/dates";
 import { Reveal } from "@/components/ui/Reveal";

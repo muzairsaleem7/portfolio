@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { ArrowUp, FileText, Mail } from "lucide-react";
+import { ArrowUp, FileText, Mail } from "@/components/ui/icons";
 import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { footer, nav } from "~/content/nav";
 import { Container } from "@/components/ui/Container";

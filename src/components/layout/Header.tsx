@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@/components/ui/icons";
 import { nav } from "~/content/nav";
 import { siteConfig } from "~/site.config";
 import { Container } from "@/components/ui/Container";

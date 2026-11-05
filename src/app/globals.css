@@ -27,6 +27,20 @@
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Sprite icons (src/components/ui/icons.tsx). In the base layer so size utilities win. */
+@layer base {
+  svg.icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
 /* ---------- Tokens ---------- */
 /* Dark theme: neutral black and zinc grays; sky/indigo stay as the only color accents. */
 :root {

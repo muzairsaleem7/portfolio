@@ -141,6 +141,14 @@ Follow-up trim (same day): removed icons that repeated visible text (calendar an
 
 The refresh costs about 2 to 3 mobile points: the home page DOM grew from about 720 to about 1,180 elements (each icon is an inline SVG with child shapes), which adds layout and hydration time. Total Blocking Time is about 250–300 ms against about 200 ms before. Ways to win the points back, if the target matters more than the icon density: fewer decorative icons per card, or CSS-mask icons instead of inline SVG.
 
+## Icon sprite (2026-11-06)
+
+- [x] Server components now render Lucide icons from `public/icons.svg`, a sprite generated from lucide-react by `scripts/build-icon-sprite.mjs` (runs before `dev` and `build`). Each icon is `<svg><use/></svg>` with fill, stroke, and default size set by one CSS rule. Client components (theme toggle, mobile menu, contact form) still use lucide-react directly. To add an icon, add a `spriteIcon("Name")` export in `src/components/ui/icons.tsx`.
+- [x] Home page: about 1,180 to 920 elements, HTML 209 KB to 186 KB, RSC payload 105 KB to 97 KB. Visuals unchanged.
+- Lighthouse mobile, 10 runs: 83, 90, 95, 96, 85, 94, 95, 94, 96, 96. On the runs with CPU benchmark index 1480+ the range was 94–96; the 83, 85, and 90 runs had benchmark dips or slow observed paints.
+- Tried and reverted: `content-visibility: auto` on Skills, Education, and Contact. Quiet runs stayed at 93–97, so it was not worth the extra ScrollTrigger refresh logic.
+- What is left in Total Blocking Time is two tasks of about 240 ms each (simulated): the first full-page layout and React hydration. Their length matches the pre-refresh build; Next.js and React set that floor.
+
 ## Open items
 
 See `CONTENT-TODO.md`: profile photo, project links or screenshots, `RESEND_API_KEY` in Vercel.

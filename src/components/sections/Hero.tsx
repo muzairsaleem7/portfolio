@@ -10,7 +10,7 @@ import {
   Mail,
   MapPin,
   Rocket,
-} from "lucide-react";
+} from "@/components/ui/icons";
 import { hero } from "~/content/hero";
 import { siteConfig, whatsappHref } from "~/site.config";
 import { Container } from "@/components/ui/Container";

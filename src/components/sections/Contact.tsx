@@ -1,4 +1,4 @@
-import { CalendarCheck, Mail, MapPin, MessageSquareText, Phone, Send } from "lucide-react";
+import { CalendarCheck, Mail, MapPin, MessageSquareText, Phone, Send } from "@/components/ui/icons";
 import { contact } from "~/content/contact";
 import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { Section } from "@/components/ui/Section";

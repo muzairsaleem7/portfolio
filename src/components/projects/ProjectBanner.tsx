@@ -1,8 +1,15 @@
-import { Building2, Code2, LayoutDashboard, Target, Workflow, type LucideIcon } from "lucide-react";
+import {
+  Building2,
+  Code2,
+  LayoutDashboard,
+  Target,
+  Workflow,
+  type IconComponent,
+} from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
 /** One icon per project, keyed by slug; unknown slugs fall back to a code mark. */
-const PROJECT_ICONS: Record<string, LucideIcon> = {
+const PROJECT_ICONS: Record<string, IconComponent> = {
   "multi-tenant-b2b-saas-platform": Building2,
   "b2b-lead-generation-sales-pipeline": Target,
   "business-workflow-automation-platform": Workflow,

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { IconComponent } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 
@@ -8,7 +8,7 @@ type Props = {
   eyebrow: string;
   heading: string;
   intro?: ReactNode;
-  icon?: LucideIcon;
+  icon?: IconComponent;
   align?: "left" | "center";
   className?: string;
 };

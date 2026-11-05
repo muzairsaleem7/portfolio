@@ -1,4 +1,4 @@
-import { ArrowRight, FolderKanban } from "lucide-react";
+import { ArrowRight, FolderKanban } from "@/components/ui/icons";
 import { projects, projectsSection } from "~/content/projects";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";

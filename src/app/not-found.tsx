@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/Container";
-import { Compass, House } from "lucide-react";
+import { Compass, House } from "@/components/ui/icons";
 import { Button } from "@/components/ui/Button";
 
 export default function NotFound() {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, BriefcaseBusiness, FileText } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, FileText } from "@/components/ui/icons";
 import { experience, roles } from "~/content/experience";
 import { siteConfig } from "~/site.config";
 import { Container } from "@/components/ui/Container";

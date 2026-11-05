@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FolderKanban } from "lucide-react";
+import { FolderKanban } from "@/components/ui/icons";
 import { projects, projectsSection } from "~/content/projects";
 import { siteConfig } from "~/site.config";
 import { Container } from "@/components/ui/Container";

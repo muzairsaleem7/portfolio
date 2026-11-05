@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "@/components/ui/icons";
 import { projectsSection, type Project } from "~/content/projects";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";

@@ -1,4 +1,4 @@
-import { ArrowRight, BriefcaseBusiness } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness } from "@/components/ui/icons";
 import { experience, roles } from "~/content/experience";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";

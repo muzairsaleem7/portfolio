@@ -1,7 +1,7 @@
-import type { LucideIcon } from "lucide-react";
+import type { IconComponent } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 
-type Props = { icon: LucideIcon; className?: string; size?: "sm" | "md" };
+type Props = { icon: IconComponent; className?: string; size?: "sm" | "md" };
 
 /** Gradient-tinted square that frames a lucide icon; decorative. */
 export function IconTile({ icon: Icon, className, size = "md" }: Props) {

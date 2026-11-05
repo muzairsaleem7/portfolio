@@ -9,7 +9,7 @@ import {
   Info,
   Lightbulb,
   Target,
-} from "lucide-react";
+} from "@/components/ui/icons";
 import { GithubIcon } from "@/components/ui/BrandIcons";
 import { IconTile } from "@/components/ui/IconTile";
 import { notFound } from "next/navigation";

@@ -1,4 +1,11 @@
-import { Database, GitBranch, Layers, MonitorSmartphone, Server, Wrench } from "lucide-react";
+import {
+  Database,
+  GitBranch,
+  Layers,
+  MonitorSmartphone,
+  Server,
+  Wrench,
+} from "@/components/ui/icons";
 import { skills } from "~/content/skills";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";

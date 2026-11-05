@@ -8,7 +8,7 @@ import {
   Handshake,
   Layers,
   Puzzle,
-} from "lucide-react";
+} from "@/components/ui/icons";
 import { services } from "~/content/services";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";

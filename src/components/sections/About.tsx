@@ -7,7 +7,7 @@ import {
   Server,
   UserRound,
   UsersRound,
-} from "lucide-react";
+} from "@/components/ui/icons";
 import { about } from "~/content/about";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
