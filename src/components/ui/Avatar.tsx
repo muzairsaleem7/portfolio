@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
-import { siteConfig } from "~/site.config";
+import { assetPath, siteConfig } from "~/site.config";
 import { cn } from "@/lib/cn";
 
 const photoExists = fs.existsSync(path.join(process.cwd(), "public", siteConfig.profileImage));
@@ -24,7 +24,7 @@ export function Avatar({ size = 160, className, priority = false }: Props) {
     >
       {photoExists ? (
         <Image
-          src={siteConfig.profileImage}
+          src={assetPath(siteConfig.profileImage)}
           alt={`${siteConfig.name}, ${siteConfig.title}`}
           width={size}
           height={size}

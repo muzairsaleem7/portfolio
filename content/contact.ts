@@ -24,9 +24,10 @@ export const contact = {
     submit: "Send message",
     sending: "Sending…",
     success: "Thanks. Your message is in; I'll get back to you soon.",
-    error: "Something went wrong sending your message. Please try again or use LinkedIn.",
-    fallback: "The form can't send right now, but your message is ready to go.",
+    fallback: "The form couldn't send, but your message is ready to go.",
     fallbackCta: "Open it in your email app",
+    mailtoOpened: "Your email app should open with the message ready to send.",
+    mailtoOpenedCta: "Didn't open? Click here",
     validation: {
       nameRequired: "Please enter your name.",
       emailRequired: "Please enter your email.",

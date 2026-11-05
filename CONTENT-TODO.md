@@ -10,9 +10,9 @@ Open content items. Everything else on the site is verified fact from `portfolio
 
 - [ ] Add project links or screenshots when available.
 
-## 3. Contact form delivery: `RESEND_API_KEY`
+## 3. Contact form delivery (optional): `CONTACT_ENDPOINT`
 
-- [ ] Create a free Resend account with muzairsaleem7@gmail.com and add its API key as `RESEND_API_KEY` in Vercel. Delivery code is already in place. Until the key is set, the form offers visitors a prefilled email instead of sending, so no message is lost. See the README's Contact form section.
+- [ ] The form works today by opening the visitor's email app with the message filled in. To receive messages without that step, create a free Formspree form for muzairsaleem7@gmail.com and add its URL as the repository variable `CONTACT_ENDPOINT` (Settings, Secrets and variables, Actions, Variables). See the README's Contact form section.
 
 ## 4. Optional
 

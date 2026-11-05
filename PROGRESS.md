@@ -150,6 +150,20 @@ The refresh costs about 2 to 3 mobile points: the home page DOM grew from about 
 - Tried and reverted: a `<Suspense>` boundary inside every `Reveal` block, to get selective (chunked) hydration. Even small boundaries were outlined (30 of 41 streamed as hidden segments swapped in by `$RC`), adding a ~200 ms layout task; 5 runs scored 81–93. Same failure mode as the earlier per-section Suspense attempt.
 - What is left in Total Blocking Time is two tasks of about 240 ms each (simulated): the first full-page layout and React hydration. Their length matches the pre-refresh build; Next.js and React set that floor.
 
+## GitHub Pages (2026-11-06)
+
+The user chose GitHub Pages instead of Vercel.
+
+- [x] Static export: `output: "export"`, `images.unoptimized`, base path from `PAGES_BASE_PATH` (set by the workflow from `actions/configure-pages`). Cache Components and partial prefetching removed (not used by a static export); the footer year is computed at build time.
+- [x] Site URL is now `https://muzairsaleem7.github.io/portfolio`. Canonicals and `og:url` are absolute (a root-relative path would drop the `/portfolio` sub-path); `metadataBase` ends with a slash.
+- [x] Favicon and share image moved to `/icon.png` and `/og.png` route handlers. Extensionless image routes would be served as `application/octet-stream`, which link-preview scrapers reject. Every page's Open Graph block includes the image (`src/lib/og.ts`), because page-level `openGraph` replaces the layout's.
+- [x] Icon sprite, avatar, and project images go through `assetPath()` so they include the base path.
+- [x] Contact form: `/api/contact` removed. The form POSTs to `NEXT_PUBLIC_CONTACT_ENDPOINT` when set (Formspree-style), otherwise opens the visitor's email app with the message filled in.
+- [x] `scripts/flatten-segment-prefetch.mjs` fixes 404s on Next.js segment prefetch files in the static export.
+- [x] `.github/workflows/deploy.yml`: install, lint, typecheck, build with the base path, upload `out/`, deploy to Pages.
+- [x] Verified with a local server imitating GitHub Pages (sub-path, extensionless `.html`, `404.html`, gzip): all routes 200, unknown routes 404, sprite and images load, client navigation works, GSAP loads, no console errors or failed requests.
+- Lighthouse against that local server was unusable at the time (CPU benchmark index 205–1,097 from other load). First paint was 0.9 s on the less loaded runs. Measure on the live URL with PageSpeed Insights.
+
 ## Open items
 
-See `CONTENT-TODO.md`: profile photo, project links or screenshots, `RESEND_API_KEY` in Vercel.
+See `CONTENT-TODO.md`: profile photo, project links or screenshots, optional `CONTACT_ENDPOINT` for the form.

@@ -16,8 +16,11 @@ export const siteConfig = {
     countryCode: "PK",
     label: "Lahore, Pakistan · Remote",
   },
-  /** Production URL. Used for metadataBase, canonical URLs, sitemap, robots, OG, and JSON-LD. NEXT_PUBLIC_SITE_URL overrides it (e.g. for preview deployments). */
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://muzairsaleem.vercel.app").replace(/\/$/, ""),
+  /** Production URL (GitHub Pages). Used for canonical URLs, sitemap, robots, OG, and JSON-LD. NEXT_PUBLIC_SITE_URL overrides it, for example on a custom domain. */
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://muzairsaleem7.github.io/portfolio").replace(
+    /\/$/,
+    "",
+  ),
   links: {
     linkedin: "https://www.linkedin.com/in/muzairsaleem7/",
     github: "https://github.com/muzairsaleem7" as string,
@@ -48,4 +51,15 @@ export function telHref(phone: string): string {
 /** "+92 320 9865164" -> "https://wa.me/923209865164" */
 export function whatsappHref(phone: string): string {
   return `https://wa.me/${phone.replace(/\D/g, "")}`;
+}
+
+/** Absolute production URL for a site path ("/" or "/experience"). Canonicals use this so the
+ * GitHub Pages sub-path is kept (a root-relative path would resolve against the bare domain). */
+export function absoluteUrl(path: string): string {
+  return path === "/" ? `${siteConfig.url}/` : `${siteConfig.url}${path}`;
+}
+
+/** Prefix a /public asset path with the deploy base path. next/link does this itself; plain URLs do not. */
+export function assetPath(path: string): string {
+  return `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 }

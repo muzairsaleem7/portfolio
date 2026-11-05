@@ -73,21 +73,23 @@ function setup(gsap: Gsap, ScrollTrigger: ScrollTriggerT) {
       },
     );
   }
-  gsap.set(below, { opacity: 0, y: 32 });
-  ScrollTrigger.batch(below, {
-    start: "top 90%",
-    once: true,
-    onEnter: (batch) =>
-      gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.09,
-        overwrite: true,
-        clearProps: "transform",
-      }),
-  });
+  if (below.length) {
+    gsap.set(below, { opacity: 0, y: 32 });
+    ScrollTrigger.batch(below, {
+      start: "top 90%",
+      once: true,
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.09,
+          overwrite: true,
+          clearProps: "transform",
+        }),
+    });
+  }
 
   // 2. Experience timeline: the accent line draws as the section scrolls past.
   gsap.utils.toArray<HTMLElement>("[data-timeline-line]").forEach((line) => {

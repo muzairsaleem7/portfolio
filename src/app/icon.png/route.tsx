@@ -1,11 +1,13 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "~/site.config";
 
-export const size = { width: 64, height: 64 };
-export const contentType = "image/png";
+// Served as /icon.png (see og.png/route.tsx for why the extension matters). Referenced from layout metadata.
+export const dynamic = "force-static";
+
+const size = { width: 64, height: 64 };
 
 /** Favicon: initials on the banner gradient. */
-export default function Icon() {
+export function GET() {
   return new ImageResponse(
     <div
       style={{

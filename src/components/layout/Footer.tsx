@@ -1,25 +1,19 @@
 import Link from "next/link";
-import { cacheLife } from "next/cache";
 import { ArrowUp, FileText, Mail } from "@/components/ui/icons";
 import { siteConfig, telHref, whatsappHref } from "~/site.config";
 import { footer, nav } from "~/content/nav";
 import { Container } from "@/components/ui/Container";
 import { GithubIcon, LinkedinIcon, WhatsappIcon } from "@/components/ui/BrandIcons";
 
-/** Current year, read inside a cached scope so the page stays fully prerendered. */
-async function getYear(): Promise<number> {
-  "use cache";
-  cacheLife("days");
-  return new Date().getFullYear();
-}
+/** Year of the build; the static export is regenerated on every deploy. */
+const year = new Date().getFullYear();
 
 const iconLink =
   "border-line bg-surface text-fg hover:text-heading hover:border-chip-border hover:bg-surface-strong ease-out-soft grid size-10 place-items-center rounded-xl border transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 motion-reduce:transition-none";
 const textLink =
   "text-fg hover:text-heading inline-flex items-center gap-2 underline-offset-4 transition-colors hover:underline";
 
-export async function Footer() {
-  const year = await getYear();
+export function Footer() {
   const { email, phone, whatsapp } = siteConfig.contact;
 
   return (

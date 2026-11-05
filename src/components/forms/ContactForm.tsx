@@ -8,7 +8,13 @@ import { Button } from "@/components/ui/Button";
 
 type Fields = { name: string; email: string; company: string; message: string };
 type Errors = Partial<Record<keyof Fields, string>>;
-type Status = "idle" | "sending" | "success" | "error" | "fallback";
+type Status = "idle" | "sending" | "success" | "fallback" | "mailto";
+
+/**
+ * Optional form-backend URL (for example a Formspree endpoint) that accepts a JSON POST.
+ * Set NEXT_PUBLIC_CONTACT_ENDPOINT at build time; without it the form hands off to email.
+ */
+const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -26,7 +32,7 @@ export function validate(values: Fields): Errors {
 const inputClass =
   "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-heading placeholder:text-muted/70 transition-[border-color,box-shadow,background-color] duration-300 focus:border-chip-border focus:bg-surface-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 aria-[invalid=true]:border-red-400/70";
 
-/** Prefilled email for when the server can't deliver: the visitor's own mail app sends it. */
+/** Prefilled email to the site address, sent from the visitor's own mail app. */
 function buildMailto(values: Fields): string {
   const subject = `Portfolio inquiry from ${values.name.trim()}`;
   const signature = `${values.name.trim()} <${values.email.trim()}>`;
@@ -64,27 +70,36 @@ export function ContactForm() {
       return;
     }
 
+    const mailto = buildMailto(values);
+
+    // Static hosting has no server. Without a form endpoint, the visitor's own mail app sends it.
+    if (!CONTACT_ENDPOINT) {
+      setMailtoHref(mailto);
+      setStatus("mailto");
+      window.location.href = mailto;
+      return;
+    }
+
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, website: honeypot }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          company: values.company.trim(),
+          message: values.message.trim(),
+          _subject: `Portfolio inquiry from ${values.name.trim()}`,
+        }),
       });
-      if (!res.ok) {
-        const data = (await res.json().catch(() => null)) as { fallback?: string } | null;
-        if (data?.fallback === "mailto") {
-          // Keep the typed values so nothing is lost; the visitor sends it from their mail app.
-          setMailtoHref(buildMailto(values));
-          setStatus("fallback");
-          return;
-        }
-        throw new Error(`Request failed: ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       setStatus("success");
       setValues({ name: "", email: "", company: "", message: "" });
     } catch {
-      setStatus("error");
+      // Keep the typed values so nothing is lost; offer the visitor's mail app instead.
+      setMailtoHref(mailto);
+      setStatus("fallback");
     }
   }
 
@@ -187,20 +202,31 @@ export function ContactForm() {
               <CircleCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
               {contact.form.success}
             </span>
-          ) : status === "fallback" ? (
+          ) : status === "mailto" ? (
             <span className="text-fg">
-              {contact.form.fallback}{" "}
+              {contact.form.mailtoOpened}{" "}
               <a
                 href={mailtoHref}
                 className="text-accent font-semibold underline decoration-2 underline-offset-4"
               >
-                {contact.form.fallbackCta}
+                {contact.form.mailtoOpenedCta}
               </a>
             </span>
-          ) : status === "error" ? (
-            <span className="inline-flex items-start gap-2 text-red-300 [[data-theme=light]_&]:text-red-700">
-              <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
-              {contact.form.error}
+          ) : status === "fallback" ? (
+            <span className="text-fg inline-flex items-start gap-2">
+              <CircleAlert
+                aria-hidden="true"
+                className="mt-0.5 size-4 shrink-0 text-red-300 [[data-theme=light]_&]:text-red-700"
+              />
+              <span>
+                {contact.form.fallback}{" "}
+                <a
+                  href={mailtoHref}
+                  className="text-accent font-semibold underline decoration-2 underline-offset-4"
+                >
+                  {contact.form.fallbackCta}
+                </a>
+              </span>
             </span>
           ) : null}
         </p>

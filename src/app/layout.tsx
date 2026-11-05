@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { siteConfig } from "~/site.config";
+import { absoluteUrl, assetPath, siteConfig } from "~/site.config";
+import { OG_IMAGES } from "@/lib/og";
 import { themeInitScript } from "@/lib/theme";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
@@ -16,7 +17,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  // Trailing slash so relative metadata URLs (OG images) resolve inside the sub-path.
+  metadataBase: new URL(`${siteConfig.url}/`),
   title: {
     default: `${siteConfig.name} | ${siteConfig.title}`,
     template: `%s | ${siteConfig.name}`,
@@ -35,20 +37,23 @@ export const metadata: Metadata = {
     "PostgreSQL",
     "Lahore",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: absoluteUrl("/") },
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: siteConfig.name,
     title: `${siteConfig.name} | ${siteConfig.title}`,
     description: siteConfig.description,
-    url: "/",
+    url: absoluteUrl("/"),
+    images: OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | ${siteConfig.title}`,
     description: siteConfig.description,
+    images: [absoluteUrl("/og.png")],
   },
+  icons: { icon: [{ url: assetPath("/icon.png"), type: "image/png", sizes: "64x64" }] },
   robots: { index: true, follow: true },
 };
 

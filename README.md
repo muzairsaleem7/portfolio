@@ -50,15 +50,12 @@ Add or edit entries in `content/projects.ts`. Each project gets a card on the ho
 
 ### Contact form
 
-The form posts to `src/app/api/contact/route.ts`, which validates the payload and sends it through [Resend](https://resend.com) when an API key is configured. No SDK is installed; the route calls Resend's REST API directly.
+The site is static (GitHub Pages), so there is no server route. `src/components/forms/ContactForm.tsx` validates in the browser, then:
 
-| Variable             | Required | Purpose                                                                                                                                    |
-| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `RESEND_API_KEY`     | Yes      | Turns on delivery.                                                                                                                         |
-| `CONTACT_TO_EMAIL`   | No       | Inbox that receives messages. Defaults to the email in `site.config.ts`.                                                                   |
-| `CONTACT_FROM_EMAIL` | No       | Sender on a domain verified in Resend. Defaults to `onboarding@resend.dev`, which only delivers to the Resend account owner's own address. |
+- **With `NEXT_PUBLIC_CONTACT_ENDPOINT` set** (for example a [Formspree](https://formspree.io) form URL), it POSTs the message as JSON and shows a success message. If that fails, it offers the visitor's email app instead.
+- **Without it**, "Send message" opens the visitor's email app with the message already written and addressed to the site email.
 
-Without `RESEND_API_KEY`, or if Resend rejects a message, the form never claims success. It tells the visitor the form can't send and offers a link that opens their email app with the message already filled in, addressed to the site email.
+On GitHub, set the endpoint as a repository variable named `CONTACT_ENDPOINT` (Settings, Secrets and variables, Actions, Variables). The deploy workflow passes it to the build.
 
 ## Site structure
 
@@ -81,12 +78,19 @@ Without `RESEND_API_KEY`, or if Resend rejects a message, the form never claims 
   - A cursor spotlight on hoverable cards is a CSS gradient positioned by one pointer listener.
   - `prefers-reduced-motion` shows everything immediately with no motion. Without JavaScript nothing is hidden. If GSAP fails to load, everything is revealed after 3 seconds.
 
-## Deploy (Vercel)
+## Deploy (GitHub Pages)
 
-1. Push this repository to GitHub.
-2. Import the repo in Vercel. Framework preset: Next.js. Package manager: pnpm. No `vercel.json` is needed.
-3. The production URL is `https://muzairsaleem.vercel.app` (set in `site.config.ts`). It drives canonical URLs, the sitemap, robots, Open Graph URLs, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` only to override it, for example on a custom domain.
-4. Add `RESEND_API_KEY` (and optionally `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`) under Project Settings, Environment Variables, so the contact form delivers messages. See [Contact form](#contact-form).
+The site is a static export (`output: "export"` in `next.config.ts`), built and published by `.github/workflows/deploy.yml` on every push to `main`.
+
+1. In the repository, open Settings, Pages, and set Source to **GitHub Actions**. On a free plan the repository must be public for Pages.
+2. Push to `main`, or run the workflow by hand from the Actions tab.
+3. The site is served at `https://muzairsaleem7.github.io/portfolio/`. That URL is set in `site.config.ts` and drives canonical URLs, the sitemap, robots, Open Graph, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` only to override it, for example on a custom domain.
+
+How the sub-path works: the workflow reads the Pages base path (`/portfolio`) from `actions/configure-pages` and passes it to the build as `PAGES_BASE_PATH`. `next/link` adds it to links automatically; plain asset URLs (icon sprite, images) go through `assetPath()` in `site.config.ts`. Locally the base path is empty, so `pnpm dev` serves from `/`.
+
+`pnpm build` runs three steps: build the icon sprite, `next build` into `out/`, then `scripts/flatten-segment-prefetch.mjs`, which copies Next.js's nested prefetch files to the flat names the client requests (a static host has no rewrites).
+
+To preview the exported site locally, serve `out/` under `/portfolio` with a static server after building with `PAGES_BASE_PATH=/portfolio`.
 
 ## Project layout
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "~/site.config";
+import { absoluteUrl, siteConfig } from "~/site.config";
+import { OG_IMAGES } from "@/lib/og";
 import { resume } from "~/content/resume";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -10,8 +11,12 @@ import { PrintButton } from "@/components/resume/PrintButton";
 export const metadata: Metadata = {
   title: resume.pageTitle,
   description: `Printable one-page resume of ${siteConfig.name}, ${siteConfig.title}.`,
-  alternates: { canonical: "/resume" },
-  openGraph: { title: `${resume.pageTitle} | ${siteConfig.name}`, url: "/resume" },
+  alternates: { canonical: absoluteUrl("/resume") },
+  openGraph: {
+    title: `${resume.pageTitle} | ${siteConfig.name}`,
+    url: absoluteUrl("/resume"),
+    images: OG_IMAGES,
+  },
 };
 
 export default function ResumePage() {

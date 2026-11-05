@@ -14,7 +14,8 @@ import { GithubIcon } from "@/components/ui/BrandIcons";
 import { IconTile } from "@/components/ui/IconTile";
 import { notFound } from "next/navigation";
 import { getProject, projects, projectsSection } from "~/content/projects";
-import { siteConfig } from "~/site.config";
+import { absoluteUrl, assetPath, siteConfig } from "~/site.config";
+import { OG_IMAGES } from "@/lib/og";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Card } from "@/components/ui/Card";
@@ -35,11 +36,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: project.title,
     description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: { canonical: absoluteUrl(`/projects/${project.slug}`) },
     openGraph: {
       title: `${project.title} | ${siteConfig.name}`,
       description: project.summary,
-      url: `/projects/${project.slug}`,
+      url: absoluteUrl(`/projects/${project.slug}`),
+      images: OG_IMAGES,
     },
   };
 }
@@ -73,7 +75,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
       <Reveal delay={100} className="border-line mt-10 overflow-hidden rounded-2xl border">
         {project.image ? (
           <Image
-            src={project.image}
+            src={assetPath(project.image)}
             alt={`${project.title} screenshot`}
             width={1600}
             height={900}

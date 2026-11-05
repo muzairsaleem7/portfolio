@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowRight, BriefcaseBusiness, FileText } from "@/components/ui/icons";
 import { experience, roles } from "~/content/experience";
-import { siteConfig } from "~/site.config";
+import { absoluteUrl, siteConfig } from "~/site.config";
+import { OG_IMAGES } from "@/lib/og";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -10,8 +11,12 @@ import { Timeline } from "@/components/experience/Timeline";
 export const metadata: Metadata = {
   title: "Experience",
   description: `Full work history of ${siteConfig.name}: product engineering, full-stack development, and SaaS delivery across four roles since 2021.`,
-  alternates: { canonical: "/experience" },
-  openGraph: { title: `Experience | ${siteConfig.name}`, url: "/experience" },
+  alternates: { canonical: absoluteUrl("/experience") },
+  openGraph: {
+    title: `Experience | ${siteConfig.name}`,
+    url: absoluteUrl("/experience"),
+    images: OG_IMAGES,
+  },
 };
 
 export default function ExperiencePage() {

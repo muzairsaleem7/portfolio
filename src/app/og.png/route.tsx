@@ -2,12 +2,14 @@ import { ImageResponse } from "next/og";
 import { hero } from "~/content/hero";
 import { siteConfig } from "~/site.config";
 
-export const alt = `${siteConfig.name} – ${hero.heading}`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+// Served as /og.png. The extension matters on GitHub Pages: extensionless files are sent as
+// application/octet-stream, which link-preview scrapers reject. Referenced from layout metadata.
+export const dynamic = "force-static";
 
-/** Home page Open Graph image in the banner palette. */
-export default function OpenGraphImage() {
+const size = { width: 1200, height: 630 };
+
+/** Open Graph and Twitter card image in the banner palette. */
+export function GET() {
   return new ImageResponse(
     <div
       style={{

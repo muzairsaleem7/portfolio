@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { FolderKanban } from "@/components/ui/icons";
 import { projects, projectsSection } from "~/content/projects";
-import { siteConfig } from "~/site.config";
+import { absoluteUrl, siteConfig } from "~/site.config";
+import { OG_IMAGES } from "@/lib/og";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -9,8 +10,12 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 export const metadata: Metadata = {
   title: "Projects",
   description: `Products and internal tools built by ${siteConfig.name}: B2B SaaS and business applications, end to end.`,
-  alternates: { canonical: "/projects" },
-  openGraph: { title: `Projects | ${siteConfig.name}`, url: "/projects" },
+  alternates: { canonical: absoluteUrl("/projects") },
+  openGraph: {
+    title: `Projects | ${siteConfig.name}`,
+    url: absoluteUrl("/projects"),
+    images: OG_IMAGES,
+  },
 };
 
 export default function ProjectsPage() {

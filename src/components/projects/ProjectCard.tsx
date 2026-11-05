@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "@/components/ui/icons";
 import { projectsSection, type Project } from "~/content/projects";
+import { assetPath } from "~/site.config";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";
 import { ProjectBanner } from "@/components/projects/ProjectBanner";
@@ -25,7 +26,7 @@ export function ProjectCard({ project, index }: Props) {
       <div className="border-line relative aspect-[16/7] overflow-hidden border-b">
         {project.image ? (
           <Image
-            src={project.image}
+            src={assetPath(project.image)}
             alt={`${project.title} screenshot`}
             fill
             sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"

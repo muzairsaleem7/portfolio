@@ -1,6 +1,9 @@
 import type { SVGProps } from "react";
 import { cn } from "@/lib/cn";
+import { assetPath } from "~/site.config";
 import { ICON_SPRITE_URL } from "@/components/ui/icon-sprite.generated";
+
+const SPRITE = assetPath(ICON_SPRITE_URL);
 
 /**
  * Lucide icons for server components, served from a sprite built from lucide-react
@@ -33,7 +36,7 @@ function spriteIcon(name: string): IconComponent {
         style={overrides}
         {...rest}
       >
-        <use href={`${ICON_SPRITE_URL}#${name}`} />
+        <use href={`${SPRITE}#${name}`} />
       </svg>
     );
   }
